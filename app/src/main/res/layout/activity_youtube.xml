@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/youtube_view"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.45" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/stopbutton"
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_lock_power_off"
+        android:layout_weight="0.31"
+        android:onClick="stopButtonClick"/>
+
+</LinearLayout>

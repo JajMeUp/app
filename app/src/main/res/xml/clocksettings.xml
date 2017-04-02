@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="prefHistory"
+            android:summary="@string/pref_history_summary"
+            android:title="@string/pref_history" >
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:id="@+id/listpref"
+            android:key="prefWhoWakeMe"
+            android:entries="@array/syncWhoWakeMe"
+            android:entryValues="@array/syncWhoWakeMe"
+            android:defaultValue="Tout le monde"
+            android:summary="Tout le monde"
+            android:title="@string/pref_whowakeme" />
+
+        <EditTextPreference
+            android:title="@string/pref_reveil_default"
+            android:summary="@string/pref_reveil_default_summary"
+            android:key="prefReveilDefault"/>
+
+
+</PreferenceScreen>

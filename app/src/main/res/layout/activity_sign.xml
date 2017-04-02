@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SignActivity"
+    android:background="@color/background_general">
+
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Se connecter"
+        android:id="@+id/ButtonLogin"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/button_form" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Créer un compte"
+        android:id="@+id/ButtonRegister"
+        android:background="@drawable/button_form"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="88dp" />
+</RelativeLayout>

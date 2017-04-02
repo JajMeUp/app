@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="syncWhoWakeMe">
+        <item name="1">Tout le monde</item>
+        <item name="2">Mes amis</item>
+        <item name="3">Seulement moi</item>
+    </string-array>
+
+</resources>

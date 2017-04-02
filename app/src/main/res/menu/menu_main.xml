@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wakemeup.ektoplasma.valou.wakemeup.activities.MainActivity">
+
+    <item
+        android:id="@+id/action_parametre"
+        android:orderInCategory="100"
+        android:title="@string/menu_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_message"
+        android:icon="@drawable/ic_message_notif"
+        android:title="@string/action_cart"
+        android:orderInCategory="2"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_friends"
+        android:icon="@drawable/ic_friend_notif"
+        android:title="@string/action_cart"
+        android:orderInCategory="3"
+        app:showAsAction="always" />
+
+
+</menu>
