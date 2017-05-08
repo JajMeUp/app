@@ -2,10 +2,10 @@
 -- version 4.2.12deb2+deb8u2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Dec 01, 2016 at 05:32 PM
--- Server version: 5.5.52-0+deb8u1
--- PHP Version: 5.6.27-0+deb8u1
+-- Client :  localhost
+-- Généré le :  Lun 08 Mai 2017 à 10:54
+-- Version du serveur :  5.5.53-0+deb8u1
+-- Version de PHP :  5.6.29-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `wakemeup`
+-- Base de données :  `wakemeup`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alarm`
+-- Structure de la table `alarm`
 --
 
 CREATE TABLE IF NOT EXISTS `alarm` (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `alarm` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `alarm`
+-- Contenu de la table `alarm`
 --
 
 INSERT INTO `alarm` (`id`, `idUser`, `enabled`, `idVoter`, `ytlink`, `msg`, `chosen`, `date`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `alarm` (`id`, `idUser`, `enabled`, `idVoter`, `ytlink`, `msg`, `cho
 -- --------------------------------------------------------
 
 --
--- Table structure for table `friends`
+-- Structure de la table `friends`
 --
 
 CREATE TABLE IF NOT EXISTS `friends` (
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `friends` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `friends`
+-- Contenu de la table `friends`
 --
 
 INSERT INTO `friends` (`id`, `idUser`, `idAmi`, `pending`, `hasAccepted`) VALUES
@@ -69,7 +69,7 @@ INSERT INTO `friends` (`id`, `idUser`, `idAmi`, `pending`, `hasAccepted`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Structure de la table `members`
 --
 
 CREATE TABLE IF NOT EXISTS `members` (
@@ -84,17 +84,17 @@ CREATE TABLE IF NOT EXISTS `members` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `members`
+-- Contenu de la table `members`
 --
 
 INSERT INTO `members` (`id`, `username`, `password`, `cookie`, `mode`, `pseudonyme`, `date_creation`, `image`) VALUES
 (00000000000000000004, 'Theo', '$2y$10$85EEE87bRJ1HAQMWgB7.ROx6N.4mq/s2X8NgrqKNDkUgejOE7pBWW', 'ecb1d015c9781e497b45297266808bd12f0407a1bdaad4cf7fa802bb1247e907', 'world', 'Theo', '2016-09-22 13:32:03', NULL),
-(00000000000000000005, 'valou', '$2y$10$4tZ.Q2lqbYIzu2YirAnth.iS4b3qJedAEUfhH/GkpmZ7mpBwWWDka', '01502ee8db8a3109674eb5f8e8dade127385a48beb661d8bc74ea2475f151c2d', 'private', 'valou', '2016-09-22 13:36:31', NULL);
+(00000000000000000005, 'valou', '$2y$10$4tZ.Q2lqbYIzu2YirAnth.iS4b3qJedAEUfhH/GkpmZ7mpBwWWDka', 'f61d69c1c79b3a8851ace6d2e58dfcbb564846d60a054b9a396b1ec0eace9150', 'private', 'valou', '2016-09-22 13:36:31', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
+-- Structure de la table `message`
 --
 
 CREATE TABLE IF NOT EXISTS `message` (
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `message`
+-- Contenu de la table `message`
 --
 
 INSERT INTO `message` (`id`, `idSender`, `idReceiver`, `msg`) VALUES
@@ -114,7 +114,7 @@ INSERT INTO `message` (`id`, `idSender`, `idReceiver`, `msg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messenger`
+-- Structure de la table `messenger`
 --
 
 CREATE TABLE IF NOT EXISTS `messenger` (
@@ -127,95 +127,95 @@ CREATE TABLE IF NOT EXISTS `messenger` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Index pour les tables exportées
 --
 
 --
--- Indexes for table `alarm`
+-- Index pour la table `alarm`
 --
 ALTER TABLE `alarm`
  ADD PRIMARY KEY (`id`), ADD KEY `idUser` (`idUser`), ADD KEY `idVoter` (`idVoter`);
 
 --
--- Indexes for table `friends`
+-- Index pour la table `friends`
 --
 ALTER TABLE `friends`
  ADD PRIMARY KEY (`id`), ADD KEY `idUser` (`idUser`), ADD KEY `idAmi` (`idAmi`);
 
 --
--- Indexes for table `members`
+-- Index pour la table `members`
 --
 ALTER TABLE `members`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `pseudonyme` (`pseudonyme`);
 
 --
--- Indexes for table `message`
+-- Index pour la table `message`
 --
 ALTER TABLE `message`
  ADD PRIMARY KEY (`id`), ADD KEY `idSender` (`idSender`), ADD KEY `idReceiver` (`idReceiver`);
 
 --
--- Indexes for table `messenger`
+-- Index pour la table `messenger`
 --
 ALTER TABLE `messenger`
  ADD PRIMARY KEY (`id`), ADD KEY `idUser` (`idUser`,`idOther`), ADD KEY `idOther` (`idOther`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT for table `alarm`
+-- AUTO_INCREMENT pour la table `alarm`
 --
 ALTER TABLE `alarm`
 MODIFY `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `friends`
+-- AUTO_INCREMENT pour la table `friends`
 --
 ALTER TABLE `friends`
 MODIFY `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `members`
+-- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
 MODIFY `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `message`
+-- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
 MODIFY `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `messenger`
+-- AUTO_INCREMENT pour la table `messenger`
 --
 ALTER TABLE `messenger`
 MODIFY `id` bigint(20) unsigned zerofill NOT NULL AUTO_INCREMENT;
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `alarm`
+-- Contraintes pour la table `alarm`
 --
 ALTER TABLE `alarm`
 ADD CONSTRAINT `alarm_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `members` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `alarm_ibfk_2` FOREIGN KEY (`idVoter`) REFERENCES `members` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `friends`
+-- Contraintes pour la table `friends`
 --
 ALTER TABLE `friends`
 ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `members` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `friends_ibfk_3` FOREIGN KEY (`idAmi`) REFERENCES `members` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `message`
+-- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
 ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`idSender`) REFERENCES `members` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`idReceiver`) REFERENCES `members` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `messenger`
+-- Contraintes pour la table `messenger`
 --
 ALTER TABLE `messenger`
 ADD CONSTRAINT `messenger_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
