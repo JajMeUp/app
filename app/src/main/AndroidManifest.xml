@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -19,130 +19,138 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.SEND" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="ekto.valou.badgebroadcast" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="ekto.valou.ytbroadcast" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.InstanceActivity" android:label="WakeMeUp">
-
+        <activity
+            android:name=".activities.InstanceActivity"
+            android:label="WakeMeUp">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.MAIN"/>
+
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-       <!-- <activity android:name=".activities.SignActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/>-->
+        <!-- <activity android:name=".activities.SignActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/> -->
         <activity android:name=".activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-       <!-- <activity android:name=".activities.RegisterActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.LoginActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/>-->
+        <!--
+        <activity android:name=".activities.RegisterActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.LoginActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/>
+        -->
 
         <activity
             android:name=".activities.SignActivity"
             android:label="Bienvenue dans WakeMeUp"
             android:theme="@style/AppTheme">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activities.LoginActivity"
             android:label="Connexion"
             android:theme="@style/AppTheme">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activities.RegisterActivity"
             android:label="Inscription"
             android:theme="@style/AppTheme">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".preferences.UserSettings"
+        <activity
+            android:name=".preferences.UserSettings"
             android:screenOrientation="nosensor">
             <intent-filer>
                 <action android:name=".Preferences" />
+
                 <category android:name="android.intent.cetagory.PREFERENCE" />
             </intent-filer>
         </activity>
-
-        <activity android:name=".preferences.ClockSettings"
+        <activity
+            android:name=".preferences.ClockSettings"
             android:screenOrientation="nosensor">
             <intent-filer>
                 <action android:name=".Preferences" />
+
                 <category android:name="android.intent.cetagory.PREFERENCE" />
             </intent-filer>
         </activity>
-
         <activity
             android:name=".activities.DemandeAmiActivity"
-            android:label="Demande d'amis">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            android:label="Demande d&apos;amis">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activities.MessageActivity"
             android:label="Message">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activities.MessengerActivity"
             android:label="Messenger">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".activities.ParametresActivity"
             android:label="Paramètres">
-            <intent-filter >
-                <category  android:name="android.intent.category.DEFAULT"/>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
 
+        <activity
+            android:name=".activities.Jaj"
+            android:label="Paramètres">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".services.AlarmService"
             android:enabled="true" />
+
         <receiver android:name=".receivers.AlarmReceiver" />
-        <activity android:name=".activities.YoutubeActivity"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <activity android:name=".utilities.GalleryUtil"/>
+
+        <activity android:name=".activities.YoutubeActivity" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <activity android:name=".utilities.GalleryUtil" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

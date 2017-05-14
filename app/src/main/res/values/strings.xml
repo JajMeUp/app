@@ -59,5 +59,6 @@
     <color name="accent">#2286c9</color>
     <!--<color name="accent">#2286c9</color>-->
     <color name="test">#00ff04</color>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

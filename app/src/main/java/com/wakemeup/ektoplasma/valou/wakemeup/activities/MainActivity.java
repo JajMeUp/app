@@ -1,5 +1,6 @@
 package com.wakemeup.ektoplasma.valou.wakemeup.activities;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -7,37 +8,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
-
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.wakemeup.ektoplasma.valou.wakemeup.R;
+import com.wakemeup.ektoplasma.valou.wakemeup.adaptaters.PageAdapter;
+import com.wakemeup.ektoplasma.valou.wakemeup.drawables.NotificationDrawable;
 import com.wakemeup.ektoplasma.valou.wakemeup.fragments.ClockActivity;
+import com.wakemeup.ektoplasma.valou.wakemeup.fragments.DialogFragmentMessageReveil;
 import com.wakemeup.ektoplasma.valou.wakemeup.receivers.AlarmReceiver;
 import com.wakemeup.ektoplasma.valou.wakemeup.utilities.Caller;
-import com.wakemeup.ektoplasma.valou.wakemeup.drawables.NotificationDrawable;
-import com.wakemeup.ektoplasma.valou.wakemeup.adaptaters.PageAdapter;
-import com.wakemeup.ektoplasma.valou.wakemeup.R;
-import com.wakemeup.ektoplasma.valou.wakemeup.fragments.DialogFragmentMessageReveil;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    private static final int ACCESS_REQUEST_CODE = 101;
 
     AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -92,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
         {
             Intent signIntent = new Intent(ctx, SignActivity.class);
             ctx.startActivity(signIntent);
+        }
+        int permission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            Log.i("ACCESS PERMISSION", "Permission to access denied");
+            makeRequest();
         }
 
         IntentFilter filter = new IntentFilter();
@@ -166,6 +175,12 @@ public class MainActivity extends AppCompatActivity {
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
+    }
+
+    protected void makeRequest() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                ACCESS_REQUEST_CODE);
     }
 
     @Override
@@ -314,6 +329,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.action_parametre:
                 i = new Intent(this, ParametresActivity.class);
+                //i = new Intent(this, Jaj.class);
                 startActivityForResult(i, 1);
                 return true;
             case R.id.action_friends:

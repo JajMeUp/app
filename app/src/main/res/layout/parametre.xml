@@ -16,7 +16,8 @@
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_search"/>
+            android:src="@drawable/ic_search"
+            />
         <View
             android:layout_height="1dip"
             android:background="#FF909090" />
