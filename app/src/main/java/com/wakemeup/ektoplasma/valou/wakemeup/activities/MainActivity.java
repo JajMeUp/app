@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -107,8 +109,11 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction("ekto.valou.badgebroadcast");
         IntentFilter ytfilter = new IntentFilter();
         ytfilter.addAction("ekto.valou.ytbroadcast");
+        IntentFilter volleyerror = new IntentFilter();
+        volleyerror.addAction("volley.error.message");
         registerReceiver(receiver, filter);
         registerReceiver(ytreceiver, ytfilter);
+        registerReceiver(volleyerrorreceiver, volleyerror);
 
         setContentView(R.layout.activity_main);
         Caller.setCtx(ctx.getApplicationContext());
@@ -440,5 +445,24 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-
+    private BroadcastReceiver volleyerrorreceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            displayAlert();
+        }
+    };
+    private void displayAlert()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Erreur réseau detectée.").setCancelable(
+                false).setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }

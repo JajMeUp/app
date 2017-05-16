@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.*;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.wakemeup.ektoplasma.valou.wakemeup.R;
 import com.wakemeup.ektoplasma.valou.wakemeup.activities.MainActivity;
 import com.wakemeup.ektoplasma.valou.wakemeup.activities.SignActivity;
@@ -259,6 +261,8 @@ public final class Caller {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Intent intent = new Intent("volley.error.message",null);
+                ctx.sendBroadcast(intent);
             }
         };
         DataRequest requestor = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/check.php",params, reponseListener, errorListener);
@@ -502,6 +506,8 @@ public final class Caller {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                //Intent intent = new Intent("volley.error.message",null);
+                //ctx.sendBroadcast(intent);
             }
         };
         DataRequest requestor = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/read.php",params, reponseListener, errorListener);
@@ -758,6 +764,7 @@ public final class Caller {
         NewAmi = new ArrayList<>();
         Map<String, String> params = new HashMap<>();
         params.put("cookie",cookieInstance);
+        Log.d("ERROR getnotif", ctx.toString());
 
         Response.Listener<JSONObject> reponseListener= new Response.Listener<JSONObject>() {
             @Override
@@ -807,6 +814,9 @@ public final class Caller {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Intent intent = new Intent("volley.error.message");
+                Log.d("ERROR", ctx.toString());
+                ctx.sendBroadcast(intent);
             }
         };
         DataRequest requestor = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/notif.php",params, reponseListener, errorListener);

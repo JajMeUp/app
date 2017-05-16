@@ -1,27 +1,18 @@
 package com.wakemeup.ektoplasma.valou.wakemeup.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.wakemeup.ektoplasma.valou.wakemeup.R;
 import com.wakemeup.ektoplasma.valou.wakemeup.adaptaters.CustomAdapterHistory;
-import com.wakemeup.ektoplasma.valou.wakemeup.adaptaters.UsersAdapter;
 import com.wakemeup.ektoplasma.valou.wakemeup.utilities.Caller;
 
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by Valentin on 23/09/2016.
@@ -39,9 +30,9 @@ public class HistoryActivity extends Fragment {
         view = inflater.inflate(R.layout.fragment_history, container, false);
 
         ListView listhistoryview = (ListView) view.findViewById(R.id.ListHistory);
+
         ArrayList<String> historylist = new ArrayList<String>();
         //list = new ArrayAdapter<String>(getActivity(), R.layout.history_row, historylist);
-
 
         //TODO remplir la list avec historique
         Caller.getBddHistory();
@@ -60,8 +51,9 @@ public class HistoryActivity extends Fragment {
             String voter = (String) x.next();
             String link = (String) y.next();
             Caller.nameYTvideo(link);
-            if(Caller.getCurrentVideoName() != null)
+            if(Caller.getCurrentVideoName() != null) {
                 list.add( voter + " : " + Caller.getCurrentVideoName() );
+            }
         }
 
         if (list != null)
@@ -96,8 +88,10 @@ public class HistoryActivity extends Fragment {
             String voter = (String) x.next();
             String link = (String) y.next();
             Caller.nameYTvideo(link);
-            if(Caller.getCurrentVideoName() != null)
+            if(Caller.getCurrentVideoName() != null){
                 list.add( voter + " : " + Caller.getCurrentVideoName() );
+            }
+
         }
 
         if (list != null)
