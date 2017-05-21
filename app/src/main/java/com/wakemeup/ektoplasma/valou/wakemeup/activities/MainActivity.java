@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
     TabLayout.Tab tabreveil, tablist, tabhistory;
     private boolean waitingMsg = false;
 
+    private static final int NETWORK_ERROR = 1;
+    private static final int YOUTUBE_ERROR = 2;
+
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
@@ -90,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
+        if (mIntent == null) {
+            displayAlert(YOUTUBE_ERROR);
+            Intent intent = new Intent("youtube.error.message",null);
+            Caller.getCtx().sendBroadcast(intent);
+        }
 
         Caller.storePersistantCookieString();
         if(Caller.getCookieInstance() == null)
@@ -448,20 +458,35 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver volleyerrorreceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            displayAlert();
+            displayAlert(NETWORK_ERROR);
         }
     };
-    private void displayAlert()
+    private void displayAlert(int errorID)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Erreur réseau detectée.").setCancelable(
-                false).setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        finish();
-                    }
-                });
+        if(errorID == NETWORK_ERROR)
+        {
+            builder.setMessage("Erreur réseau detectée.").setCancelable(
+                    false).setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+        }
+        if(errorID == YOUTUBE_ERROR)
+        {
+            builder.setMessage("Erreur : L'application Youtube n'est pas installée.").setCancelable(
+                    false).setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+        }
+
         AlertDialog alert = builder.create();
         alert.show();
     }

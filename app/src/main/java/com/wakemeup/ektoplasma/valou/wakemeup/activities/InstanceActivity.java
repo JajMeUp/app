@@ -17,6 +17,9 @@ import com.wakemeup.ektoplasma.valou.wakemeup.utilities.Caller;
  */
 public class InstanceActivity extends AppCompatActivity {
 
+    private static final int NETWORK_ERROR = 1;
+    private static final int YOUTUBE_ERROR = 2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,9 @@ public class InstanceActivity extends AppCompatActivity {
         IntentFilter volleyerrorfilter = new IntentFilter();
         volleyerrorfilter.addAction("volley.error.message");
         registerReceiver(volleyerrorreceiver, volleyerrorfilter);
+        IntentFilter yterrorfilter = new IntentFilter();
+        yterrorfilter.addAction("youtube.error.message");
+        registerReceiver(yterrorreceiver, yterrorfilter);
 
         Caller.setCtx(ctx);
         Caller.storePersistantCookieString();
@@ -48,21 +54,42 @@ public class InstanceActivity extends AppCompatActivity {
     private BroadcastReceiver volleyerrorreceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            displayAlert();
+            displayAlert(NETWORK_ERROR);
         }
     };
 
-    private void displayAlert()
+    private BroadcastReceiver yterrorreceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            displayAlert(YOUTUBE_ERROR);
+        }
+    };
+
+    private void displayAlert(int errorid)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Erreur réseau detectée.").setCancelable(
-                false).setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        finish();
-                    }
-                });
+        if(errorid == NETWORK_ERROR)
+        {
+            builder.setMessage("Erreur réseau detectée.").setCancelable(
+                    false).setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+        }
+        if(errorid == YOUTUBE_ERROR)
+        {
+            builder.setMessage("Erreur : L'application Youtube n'est pas installée.").setCancelable(
+                    false).setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+        }
         AlertDialog alert = builder.create();
         alert.show();
     }
