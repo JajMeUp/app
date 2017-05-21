@@ -51,6 +51,7 @@ public class ParametresActivity extends /*AppCompat*/Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parametre);
         mImageView = (ImageView) findViewById(R.id.ProfilePicIV);
+
         ctx = ParametresActivity.this;
 
         String save = PreferenceManager.getDefaultSharedPreferences(this).getString("PhotoPath", "defaultStringIfNothingFound");

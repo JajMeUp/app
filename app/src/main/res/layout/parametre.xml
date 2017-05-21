@@ -2,22 +2,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ParametresActivity" >
+    tools:context=".activities.ParametresActivity"
+    android:background="@color/background_general">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.wakemeup.ektoplasma.valou.wakemeup.drawables.RingImage
+        android:id="@+id/ProfilePicIV"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_search" />
+
+   <!-- <ImageView
+        android:id="@+id/user_settings"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_user"
+        android:layout_below="@id/ProfilePicIV"/>
+
+    <ImageView
+        android:id="@+id/clock_settings"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_gears"
+        android:layout_below="@id/ProfilePicIV"
+        android:layout_alignParentRight="true"/>-->
+    <TextView
+        android:id="@+id/user_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paramètres utilisateur"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:layout_below="@id/ProfilePicIV"
+        android:textColor="@color/text_primary"/>
+
+    <TextView
+        android:id="@+id/clock_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paramètres réveil"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:layout_below="@id/user_settings"
+        android:textColor="@color/text_primary"/>
+
+  <!--  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
 
         android:layout_height="fill_parent"
 
+        android:gravity="center_horizontal"
+
         android:stretchColumns="1">
 
-        <ImageView
-            android:id="@+id/ProfilePicIV"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_search"
-            />
+        <LinearLayout
+            android:layout_centerInParent="true">
+
+            <com.wakemeup.ektoplasma.valou.wakemeup.drawables.RingImage
+                android:id="@+id/ProfilePicIV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_search" />
+
+        </LinearLayout>
+
         <View
             android:layout_height="1dip"
             android:background="#FF909090" />
@@ -42,6 +91,6 @@
             android:textSize="20sp"
             android:clickable="true"/>
 
-    </TableLayout>
+    </TableLayout>-->
 
 </RelativeLayout>
