@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-   require("Messenger.class.php");
+   require("Messenger.php");
    require("Members.class.php");
 
    $members  = new Members();
@@ -11,7 +11,7 @@
 
    if (isset($_POST["cookie"])) {
 
-	$cookie = filter_var($_POST["cookie"],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+	$cookie = filter_var($_POST["cookie"],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 	if(!empty($_POST["cookie"])){
 
@@ -39,7 +39,7 @@
 							 if ($members !== null) {
 							 	$arr_senders[] = $members->pseudonyme;
 							 	$arr_msg[] = $o_message["msg"];
-							 } 
+							 }
 
 							 $messages->id = $o_message["id"];
 							 $message->read = "true";
@@ -63,7 +63,7 @@
 		else{
 			$response["statut"] = array("succes"=>"false","error"=>"sql search error ".$cookie);
 			header('Content-Type: application/json;charset=utf-8');
-			echo json_encode($response, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);	
+			echo json_encode($response, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
 		}
 
 	}

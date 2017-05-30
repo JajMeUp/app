@@ -343,8 +343,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.action_parametre:
-                i = new Intent(this, ParametresActivity.class);
-                //i = new Intent(this, Jaj.class);
+                i = new Intent(this, SettingsActivity.class);
                 startActivityForResult(i, 1);
                 return true;
             case R.id.action_friends:

@@ -124,15 +124,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ParametresActivity"
-            android:label="Paramètres">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".activities.Jaj"
+            android:name=".activities.SettingsActivity"
             android:label="Paramètres">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -146,11 +138,6 @@
         <receiver android:name=".receivers.AlarmReceiver" />
 
         <activity android:name=".activities.YoutubeActivity" />
-        <!--
- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-        <activity android:name=".utilities.GalleryUtil" />
 
         <meta-data
             android:name="com.google.android.gms.version"

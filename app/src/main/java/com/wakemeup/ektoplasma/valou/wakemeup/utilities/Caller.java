@@ -3,6 +3,7 @@ package com.wakemeup.ektoplasma.valou.wakemeup.utilities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -1105,27 +1106,25 @@ public final class Caller {
         params.put("image", picture);
         //TODO security
 
-        Response.Listener<JSONObject> reponseListener= new Response.Listener<JSONObject>() {
+        Response.Listener<JSONObject> responseListener= new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-
                     JSONObject jsonResponse = response.getJSONObject("statut");
-                    String succes = jsonResponse.getString("succes");
+                    String success = jsonResponse.getString("success");
 
-                    if(succes != null && succes.matches("true")) {
-                        Toast.makeText(ctx, "Image envoyée.", Toast.LENGTH_LONG).show();
+                    if(!TextUtils.isEmpty(success) && success.matches("true")) {
+                        Toast.makeText(ctx, "Photo de profil mise à jour !", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        System.out.println("Could not send picture.");
-                        Toast.makeText(ctx, "echec...", Toast.LENGTH_LONG).show();
+                        Log.e(Caller.class.getSimpleName(), "sendPicture: Error will sending the profile picture: " + jsonResponse.get("error"));
+                        Toast.makeText(ctx, "Erreur lors de la synchronisation de la photo de profil ...", Toast.LENGTH_LONG).show();
                     }
-
-
                 } catch (JSONException e) {
+                    Log.e(Caller.class.getSimpleName(), "sendPicture: Bad response syntaxe ...");
+                    Toast.makeText(ctx, "Erreur lors de la synchronisation de la photo de profil ...", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
-
             }
         };
 
@@ -1135,42 +1134,36 @@ public final class Caller {
                 error.printStackTrace();
             }
         };
-        DataRequest requestor = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/put_pic.php",params, reponseListener, errorListener);
+        DataRequest request = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/put_pic.php",params, responseListener, errorListener);
 
-        QueueSingleton.getInstance(ctx).addToRequestQueue(requestor);
+        QueueSingleton.getInstance(ctx).addToRequestQueue(request);
     }
 
     public static void getPicture()
     {
-
         Map<String, String> params = new HashMap<>();
-        params.put("cookie",cookieInstance);
+        params.put("cookie", cookieInstance);
         //TODO security
 
-        Response.Listener<JSONObject> reponseListener= new Response.Listener<JSONObject>() {
+        Response.Listener<JSONObject> responseListener= new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-
                     JSONObject jsonResponse = response.getJSONObject("statut");
-                    String succes = jsonResponse.getString("succes");
+                    String success = jsonResponse.getString("success");
 
-                    if(succes != null && succes.matches("true")) {
-                        Toast.makeText(ctx, "Image récupérée.", Toast.LENGTH_LONG).show();
+                    if(success != null && success.matches("true")) {
+                        Log.d(this.getClass().getSimpleName(), "Profile picture successfully retrieved from the server");
                         Intent broadcast = new Intent("ekto.valou.picbroadcast");
-                        broadcast.putExtra("data",jsonResponse.getString("image"));
+                        broadcast.putExtra("data", jsonResponse.getString("picture"));
                         ctx.sendBroadcast(broadcast);
                     }
-                    else{
-                        System.out.println("Could not get picture.");
-                        Toast.makeText(ctx, "echec...", Toast.LENGTH_LONG).show();
+                    else {
+                        Log.e(this.getClass().getSimpleName(), "Could NOT retrieved profile picture from the server: " + jsonResponse.getString("error"));
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         };
 
@@ -1180,8 +1173,8 @@ public final class Caller {
                 error.printStackTrace();
             }
         };
-        DataRequest requestor = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/get_pic.php",params, reponseListener, errorListener);
+        DataRequest request = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/get_pic.php", params, responseListener, errorListener);
 
-        QueueSingleton.getInstance(ctx).addToRequestQueue(requestor);
+        QueueSingleton.getInstance(ctx).addToRequestQueue(request);
     }
 }

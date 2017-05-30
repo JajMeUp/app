@@ -31,6 +31,7 @@ public class DataRequest extends Request<JSONObject> {
 
     public DataRequest(int method, String url, Map<String, String> params, Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
+        Log.d(DataRequest.class.getName(), "Requesting " + url);
         this.listener = reponseListener;
         this.params = params;
     }
@@ -80,7 +81,7 @@ public class DataRequest extends Request<JSONObject> {
             message = "Connection TimeOut! Please check your internet connection.";
         }
 
-        Log.d("ERROR VOLLEY", message);
+        Log.e("ERROR VOLLEY", message);
         return volleyError;
     }
 }
