@@ -86,7 +86,8 @@
         </activity>
         <activity
             android:name=".preferences.UserSettings"
-            android:screenOrientation="nosensor">
+            android:screenOrientation="nosensor"
+            android:theme="@style/PreferenceTheme">
             <intent-filer>
                 <action android:name=".Preferences" />
 
@@ -95,7 +96,8 @@
         </activity>
         <activity
             android:name=".preferences.ClockSettings"
-            android:screenOrientation="nosensor">
+            android:screenOrientation="nosensor"
+            android:theme="@style/PreferenceTheme">
             <intent-filer>
                 <action android:name=".Preferences" />
 
