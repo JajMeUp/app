@@ -16,19 +16,22 @@
         android:layout_marginTop="0dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/motdepasse"
         android:hint="@string/hint_password"
+        android:textColorHint="@color/text_primary"
         android:inputType="textPassword"
         android:layout_below="@+id/viewPw"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/username"
         android:layout_alignEnd="@+id/username"
+        android:textColor="@color/text_primary"
      />
 
     <Button
@@ -39,7 +42,8 @@
         android:layout_below="@+id/motdepasse"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="88dp"
-        android:background="@drawable/button_form"/>
+        android:background="@drawable/button_form"
+        android:textColor="@color/text_primary"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,7 +54,8 @@
         android:layout_marginTop="61dp"
         android:layout_below="@+id/username"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -61,7 +66,9 @@
         android:layout_alignEnd="@+id/validerlogin"
         android:inputType="text"
         android:hint="@string/hint_username"
+        android:textColorHint="@color/text_primary"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
 </RelativeLayout>

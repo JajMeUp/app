@@ -30,7 +30,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="PreferenceTheme">
+    <style name="MainTheme" parent="Theme.AppCompat">
         <item name="android:background">@color/background_general</item>
         <item name="android:textColor">@color/text_primary</item>
     </style>

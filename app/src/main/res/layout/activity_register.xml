@@ -14,33 +14,37 @@
         android:ems="10"
         android:id="@+id/pseudonyme"
         android:hint="@string/hint_pseudo"
+        android:textColorHint="@color/text_primary"
         android:layout_below="@+id/viewPseudo"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/username"
+        android:text="@string/email"
         android:id="@+id/viewUsername"
         android:layout_marginTop="0dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/motdepasseReg"
         android:hint="@string/hint_password"
+        android:textColorHint="@color/text_primary"
         android:inputType="textPassword"
         android:layout_below="@+id/viewPw"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/pseudonyme"
         android:layout_alignEnd="@+id/pseudonyme"
-         />
+        android:textColor="@color/text_primary"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -50,18 +54,21 @@
         android:layout_below="@+id/motdepasseReg"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="88dp"
-        android:background="@drawable/button_form"/>
+        android:background="@drawable/button_form"
+        android:textColor="@color/text_primary"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/nom_pseudo"
+        android:textColorHint="@color/text_primary"
         android:id="@+id/viewPseudo"
         android:layout_marginTop="130dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,17 +79,20 @@
         android:layout_marginTop="61dp"
         android:layout_below="@+id/pseudonyme"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/usernameReg"
+        android:id="@+id/mailReg"
         android:layout_below="@+id/viewUsername"
         android:layout_alignRight="@+id/validerregister"
         android:layout_alignEnd="@+id/validerregister"
         android:inputType="text"
-        android:hint="@string/hint_username"
+        android:hint="@string/hint_mail"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_primary"/>
 </RelativeLayout>

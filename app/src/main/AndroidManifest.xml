@@ -62,24 +62,21 @@
 
         <activity
             android:name=".activities.SignActivity"
-            android:label="Bienvenue dans WakeMeUp"
-            android:theme="@style/AppTheme">
+            android:label="Bienvenue dans WakeMeUp">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="Connexion"
-            android:theme="@style/AppTheme">
+            android:label="Connexion">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.RegisterActivity"
-            android:label="Inscription"
-            android:theme="@style/AppTheme">
+            android:label="Inscription">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -87,7 +84,7 @@
         <activity
             android:name=".preferences.UserSettings"
             android:screenOrientation="nosensor"
-            android:theme="@style/PreferenceTheme">
+            android:theme="@style/MainTheme">
             <intent-filer>
                 <action android:name=".Preferences" />
 
@@ -97,7 +94,7 @@
         <activity
             android:name=".preferences.ClockSettings"
             android:screenOrientation="nosensor"
-            android:theme="@style/PreferenceTheme">
+            android:theme="@style/MainTheme">
             <intent-filer>
                 <action android:name=".Preferences" />
 
