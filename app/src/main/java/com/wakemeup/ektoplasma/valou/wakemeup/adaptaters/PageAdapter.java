@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.wakemeup.ektoplasma.valou.wakemeup.fragments.ClockActivity;
-import com.wakemeup.ektoplasma.valou.wakemeup.fragments.HistoryActivity;
 import com.wakemeup.ektoplasma.valou.wakemeup.fragments.UsersList;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
@@ -22,15 +21,14 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
-            case 0:
+            /*case 0:
                 HistoryActivity tab0 = new HistoryActivity();
-                return tab0;
-            case 1:
+                return tab0;*/
+            case 0:
                 ClockActivity tab1 = new ClockActivity();
                 return tab1;
-            case 2:
+            case 1:
                 UsersList tab2 = new UsersList();
                 return tab2;
 

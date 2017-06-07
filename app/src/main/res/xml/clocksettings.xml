@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="prefHistory"
             android:summary="@string/pref_history_summary"
             android:title="@string/pref_history" >
@@ -13,9 +13,10 @@
             android:key="prefWhoWakeMe"
             android:entries="@array/syncWhoWakeMe"
             android:entryValues="@array/syncWhoWakeMe"
-            android:defaultValue="Tout le monde"
-            android:summary="Tout le monde"
-            android:title="@string/pref_whowakeme" />
+            android:defaultValue="Mes amis"
+            android:summary="Mes amis"
+            android:title="@string/pref_whowakeme"
+            />
 
         <EditTextPreference
             android:title="@string/pref_reveil_default"

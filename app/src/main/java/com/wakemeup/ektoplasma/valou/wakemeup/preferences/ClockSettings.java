@@ -6,7 +6,7 @@ import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.widget.ListView;
+import android.preference.PreferenceScreen;
 
 import com.wakemeup.ektoplasma.valou.wakemeup.R;
 import com.wakemeup.ektoplasma.valou.wakemeup.utilities.Caller;
@@ -27,6 +27,11 @@ public class ClockSettings extends PreferenceActivity implements
                 .setSummary(sp.getString("prefReveilDefault", "Lien YouTube"));
         ListPreference lp = (ListPreference) findPreference("prefWhoWakeMe");
         lp.setSummary(sp.getString("prefWhoWakeMe", "Tout le monde"));
+        Preference historydel = findPreference("prefHistory");
+        Preference whowakemedel = findPreference("prefWhoWakeMe");
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        preferenceScreen.removePreference(historydel);
+        preferenceScreen.removePreference(whowakemedel);
     }
 
     protected void onResume() {

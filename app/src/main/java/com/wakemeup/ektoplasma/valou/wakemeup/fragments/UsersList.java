@@ -6,22 +6,21 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.widget.AdapterView;
-import android.widget.SearchView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.wakemeup.ektoplasma.valou.wakemeup.utilities.Caller;
 import com.wakemeup.ektoplasma.valou.wakemeup.R;
 import com.wakemeup.ektoplasma.valou.wakemeup.adaptaters.UsersAdapter;
+import com.wakemeup.ektoplasma.valou.wakemeup.utilities.Caller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +67,6 @@ public class UsersList extends Fragment {
                         -message du voteur*/
                 if(Caller.getCurrentLink() != null)
                 {
-                    System.out.println("YOLOLILO");
                     Caller.setCurrentReceiver(name);
                     DialogFragmentMessage dialog = DialogFragmentMessage.newInstance();
                     dialog.show(getFragmentManager(), "fragmentDialog");
@@ -138,7 +136,7 @@ public class UsersList extends Fragment {
         if(autorisation != null)
             UsersCategory = getData(autorisation);
         else
-            UsersCategory = getData("Tout le monde");
+            UsersCategory = getData("Mes amis");//Value at start
         ListUsers = new ArrayList<String>(UsersCategory.keySet());
     }
 

@@ -17,7 +17,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -136,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabreveil = tabLayout.newTab().setText("Mon réveil");
         tablist = tabLayout.newTab().setText("Liste");
-        tabhistory = tabLayout.newTab().setText("Historique");
-        tabLayout.addTab(tabhistory);
+        /*tabhistory = tabLayout.newTab().setText("Historique");
+        tabLayout.addTab(tabhistory);*/
         tabLayout.addTab(tabreveil);
         tabLayout.addTab(tablist);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setCurrentItem(1);//Choix du tab que l'on veut voir au lancement de l'app
+        viewPager.setCurrentItem(0);//Choix du tab que l'on veut voir au lancement de l'app
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -218,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.addTab(tablist, 2, false);
             }
 
-            if(!myPreference.getBoolean("prefHistory", false))
+          /*  if(!myPreference.getBoolean("prefHistory", false))
             {
                 tabLayout.removeTab(tabhistory);
             }
@@ -226,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 tabhistory = tabLayout.newTab().setText("Historique");
                 tabLayout.addTab(tabhistory, 0, false);
-            }
+            }*/
         }
 
         if(waitingMsg == true)
@@ -392,44 +390,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
-        }
-
     }
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
