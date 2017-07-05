@@ -4,9 +4,8 @@ android {
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     useLibrary 'org.apache.http.legacy'
-
     defaultConfig {
-        applicationId "com.wakemeup.ektoplasma.valou.wakemeup"
+        applicationId 'com.teamjaj.jajmeup'
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
@@ -20,6 +19,8 @@ android {
         debug {
             debuggable true
         }
+    }
+    productFlavors {
     }
 }
 

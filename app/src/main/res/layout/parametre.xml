@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SettingsActivity"
+    tools:context="com.teamjaj.agourd.valoulou.jajmeup.activities.SettingsActivity"
     android:background="@color/background_general">
 
-    <com.wakemeup.ektoplasma.valou.wakemeup.drawables.RingImage
+    <com.teamjaj.agourd.valoulou.jajmeup.drawables.RingImage
         android:id="@+id/ProfilePicIV"
         android:layout_width="250dp"
         android:layout_height="250dp"

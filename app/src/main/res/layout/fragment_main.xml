@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wakemeup.ektoplasma.valou.wakemeup.activities.MainActivity$PlaceholderFragment"
+    tools:context="com.jajmeup.ektoplasma.valou.jajmeup.com.jajmeup.ektoplasma.valou.jajmeup.activities.MainActivity$PlaceholderFragment"
     android:background="@color/background_general">
 
     <TextView

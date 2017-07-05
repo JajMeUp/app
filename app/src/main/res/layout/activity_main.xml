@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.wakemeup.ektoplasma.valou.wakemeup.activities.MainActivity">
+    tools:context="com.jajmeup.ektoplasma.valou.jajmeup.com.jajmeup.ektoplasma.valou.jajmeup.activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
