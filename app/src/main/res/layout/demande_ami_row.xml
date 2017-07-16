@@ -22,7 +22,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
-        android:text="Refuser" />
+        android:text="Refuser"
+        android:background="@drawable/button_form"/>
 
     <Button
         android:id="@+id/add_btn"
@@ -31,6 +32,7 @@
         android:layout_toLeftOf="@id/delete_btn"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:text="Accepter" />
+        android:text="Accepter"
+        android:background="@drawable/button_form"/>
 
 </RelativeLayout>
