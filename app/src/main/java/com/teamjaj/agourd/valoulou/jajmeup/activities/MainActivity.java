@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
         setBadgeCount(this, "0", "friend");
 
-        setBadgeCount(this, "0", "message");
+//        setBadgeCount(this, "0", "message");
 
 
         return true;
@@ -303,12 +303,12 @@ public class MainActivity extends AppCompatActivity {
             icon = (LayerDrawable) item.getIcon();
             reuse = icon.findDrawableByLayerId(R.id.ic_badge_friend);
         }
-        else if (badge_a_modifier.equals("message"))
+        /*else if (badge_a_modifier.equals("message"))
         {
             item = menu.findItem(R.id.action_message);
             icon = (LayerDrawable) item.getIcon();
             reuse = icon.findDrawableByLayerId(R.id.ic_badge_message);
-        }
+        }*/ //MODIF MESSENGER
 
         if (reuse != null && reuse instanceof NotificationDrawable) {
             badge = (NotificationDrawable) reuse;
@@ -324,10 +324,10 @@ public class MainActivity extends AppCompatActivity {
         {
             icon.setDrawableByLayerId(R.id.ic_badge_friend, badge);
         }
-        else if (badge_a_modifier.equals("message"))
+      /*  else if (badge_a_modifier.equals("message"))
         {
             icon.setDrawableByLayerId(R.id.ic_badge_message, badge);
-        }
+        }*/
 
     }
 
@@ -348,10 +348,10 @@ public class MainActivity extends AppCompatActivity {
                 i = new Intent(this, DemandeAmiActivity.class);
                 startActivity(i);
                 return true;
-            case R.id.action_message:
+            /*case R.id.action_message:
                 i = new Intent(this, MessageActivity.class);
                 startActivity(i);
-                return true;
+                return true;*/ // MODIF MESSENGER
         }
 
         return super.onOptionsItemSelected(item);

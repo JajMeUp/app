@@ -821,7 +821,6 @@ public final class Caller {
             }
         };
         DataRequest requestor = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/notif.php",params, reponseListener, errorListener);
-        /* ----- */
         NewMessages = new ArrayList<>();
         NewSenders = new ArrayList<>();
         Map<String, String> params2 = new HashMap<>();
@@ -879,7 +878,6 @@ public final class Caller {
             }
         };
         DataRequest requestor2 = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/notif_msg.php",params2, reponseListener2, errorListener2);
-        /* -------  */
         NewTinyMessages = new ArrayList<>();
         NewTinySenders = new ArrayList<>();
         Map<String, String> params3 = new HashMap<>();
@@ -937,10 +935,9 @@ public final class Caller {
             }
         };
         DataRequest requestor3 = new DataRequest(Request.Method.POST, "http://"+ ctx.getResources().getString(R.string.hostname_server) +"/notif_tiny.php",params3, reponseListener3, errorListener3);
-
         QueueSingleton.getInstance(ctx).addToRequestQueue(requestor);
-        QueueSingleton.getInstance(ctx).addToRequestQueue(requestor2);
-        QueueSingleton.getInstance(ctx).addToRequestQueue(requestor3);
+        //QueueSingleton.getInstance(ctx).addToRequestQueue(requestor2);
+        //QueueSingleton.getInstance(ctx).addToRequestQueue(requestor3);
     }
 
     public static void acceptFriend(final String friend)
