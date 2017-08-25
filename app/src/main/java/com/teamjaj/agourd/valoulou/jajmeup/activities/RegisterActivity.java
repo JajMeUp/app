@@ -57,7 +57,8 @@ public class RegisterActivity extends AppCompatActivity{
                         else
                         {
                             Caller.setCtx(ctx);
-                            Caller.signup(checkmail, checkpseudo, checkmdp);
+                            Caller.register(ctx, checkmail, checkpseudo, checkmdp);
+//                            Caller.signup(checkmail, checkpseudo, checkmdp);
                         }
                     }
                 }

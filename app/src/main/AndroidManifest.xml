@@ -102,7 +102,7 @@
             </intent-filer>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.DemandeAmiActivity"
+            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.PendingFriendshipActivity"
             android:label="Demande d&apos;amis">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />

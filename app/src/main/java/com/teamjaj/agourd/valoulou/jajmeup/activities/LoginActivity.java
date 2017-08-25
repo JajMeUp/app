@@ -44,9 +44,7 @@ public class LoginActivity extends AppCompatActivity{
                         }
                         else
                         {
-
-                            Caller.setCtx(ctx);
-                            Caller.signin(checkuser, checkmdp);
+                            Caller.login(ctx, checkuser, checkmdp);
                         }
                     }
                 }

@@ -32,13 +32,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.teamjaj.agourd.valoulou.jajmeup.R;
 import com.teamjaj.agourd.valoulou.jajmeup.adaptaters.PageAdapter;
 import com.teamjaj.agourd.valoulou.jajmeup.drawables.NotificationDrawable;
 import com.teamjaj.agourd.valoulou.jajmeup.fragments.ClockActivity;
 import com.teamjaj.agourd.valoulou.jajmeup.fragments.DialogFragmentMessageReveil;
 import com.teamjaj.agourd.valoulou.jajmeup.receivers.AlarmReceiver;
+import com.teamjaj.agourd.valoulou.jajmeup.services.FriendshipService;
+import com.teamjaj.agourd.valoulou.jajmeup.services.tasks.DataFetchingTask;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.Caller;
-import com.teamjaj.agourd.valoulou.jajmeup.R;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -75,51 +77,51 @@ public class MainActivity extends AppCompatActivity {
     private static final int NETWORK_ERROR = 1;
     private static final int YOUTUBE_ERROR = 2;
 
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            Caller.getNotif();
-        }
-    };
-
-    Timer timer = new Timer();
-
     public static MainActivity instance() {
         return inst;
     }
+
+    private FriendshipService friendshipService;
+    private TimerTask task;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        friendshipService = new FriendshipService();
+        task = new DataFetchingTask(getApplicationContext());
+        timer = new Timer();
+        timer.schedule(task, 4000, 20000);
+
         Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
         if (mIntent == null) {
             displayAlert(YOUTUBE_ERROR);
-            Intent intent = new Intent("youtube.error.message",null);
-            Caller.getCtx().sendBroadcast(intent);
+            Intent intent = new Intent("youtube.error.message", null);
+            sendBroadcast(intent);
         }
 
-        Caller.storePersistantCookieString();
-        if(Caller.getCookieInstance() == null)
-        {
+        if (!Caller.isTokenPresent(this)) {
             Intent signIntent = new Intent(ctx, SignActivity.class);
             ctx.startActivity(signIntent);
         }
-        int permission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        // TODO: Do we still really need this ?
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             Log.i("ACCESS PERMISSION", "Permission to access denied");
             makeRequest();
         }
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("ekto.valou.badgebroadcast");
+        registerReceiver(
+                pendingFriendshipReceiver,
+                new IntentFilter(FriendshipService.BROADCAST_REFRESH_PENDING_FRIENDSHIP_REQUEST)
+        );
         IntentFilter ytfilter = new IntentFilter();
         ytfilter.addAction("ekto.valou.ytbroadcast");
         IntentFilter volleyerror = new IntentFilter();
         volleyerror.addAction("volley.error.message");
-        registerReceiver(receiver, filter);
         registerReceiver(ytreceiver, ytfilter);
         registerReceiver(volleyerrorreceiver, volleyerror);
 
@@ -128,8 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        timer.schedule(task, 4000, 20000);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabreveil = tabLayout.newTab().setText("Mon réveil");
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
          * Gestion alarm
          ****************************************/
 
-       // setContentView(R.layout.fragment_main);
+        // setContentView(R.layout.fragment_main);
 
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -178,12 +178,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (sharedText != null) {
             String currentLink = sharedText.split(".be/")[1];
-            assert(currentLink != null);
+            assert (currentLink != null);
             Caller.setCurrentLink(currentLink);
 
             viewPager.setCurrentItem(1);
         }
-
 
 
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -197,21 +196,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         String valueAutorisation = PreferenceManager.getDefaultSharedPreferences(this).getString("prefWhoWakeMe", null);
         SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-        if(valueAutorisation != null)
-        {
-            if(valueAutorisation.equals("Seulement moi") && tablist.getText() != null)
-            {
+        if (valueAutorisation != null) {
+            if (valueAutorisation.equals("Seulement moi") && tablist.getText() != null) {
                 tabLayout.removeTab(tablist);
-            }
-            else if(tablist.getText() == null)
-            {
+            } else if (tablist.getText() == null) {
                 tablist = tabLayout.newTab().setText("Liste");
                 tabLayout.addTab(tablist, 2, false);
             }
@@ -227,10 +222,9 @@ public class MainActivity extends AppCompatActivity {
             }*/
         }
 
-        if(waitingMsg == true)
-        {
+        if (waitingMsg == true) {
             DialogFragmentMessageReveil dialog = DialogFragmentMessageReveil.newInstance();
-            dialog.show(getSupportFragmentManager(),"fragmentDialog");
+            dialog.show(getSupportFragmentManager(), "fragmentDialog");
             waitingMsg = false;
         }
 
@@ -239,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+        unregisterReceiver(pendingFriendshipReceiver);
         unregisterReceiver(ytreceiver);
     }
 
@@ -254,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
             Caller.nameYTvideo("5Fp1viiRJnw");
             Calendar calendar = Calendar.getInstance();
             ClockObject.setAlarmText("YOLOPPOELDORK");
-            Log.d("MyActivity", "Alarm heure : "+ClockObject.GetHours()+":"+ClockObject.GetMinutes());
+            Log.d("MyActivity", "Alarm heure : " + ClockObject.GetHours() + ":" + ClockObject.GetMinutes());
             calendar.set(Calendar.HOUR_OF_DAY, ClockObject.GetHours());
             calendar.set(Calendar.MINUTE, ClockObject.GetMinutes());
             Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
@@ -282,33 +276,37 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(search);*/
 
-        setBadgeCount(this, "0", "friend");
-
-        setBadgeCount(this, "0", "message");
+        setBadgeCount(this, 0, "FRIEND");
+        setBadgeCount(this, 0, "MESSAGE");
 
 
         return true;
     }
 
-    public static void setBadgeCount(Context context, String count, String badge_a_modifier) {//Change badge count
-
+    public void setBadgeCount(Context context, int count, String badgeName) {
         NotificationDrawable badge;
-        Drawable reuse = null;
+        Drawable reuse;
         MenuItem item;
-        LayerDrawable icon = null;
+        LayerDrawable icon;
+        int itemId;
+        int badgeId;
 
-        if(badge_a_modifier.equals("friend"))
-        {
-            item = menu.findItem(R.id.action_friends);
-            icon = (LayerDrawable) item.getIcon();
-            reuse = icon.findDrawableByLayerId(R.id.ic_badge_friend);
+        switch (badgeName) {
+            case "FRIEND":
+                itemId = R.id.action_friends;
+                badgeId = R.id.ic_badge_friend;
+                break;
+            case "MESSAGE":
+                itemId = R.id.action_message;
+                badgeId = R.id.ic_badge_message;
+                break;
+            default:
+                return;
         }
-        else if (badge_a_modifier.equals("message"))
-        {
-            item = menu.findItem(R.id.action_message);
-            icon = (LayerDrawable) item.getIcon();
-            reuse = icon.findDrawableByLayerId(R.id.ic_badge_message);
-        }
+
+        item = menu.findItem(itemId);
+        icon = (LayerDrawable) item.getIcon();
+        reuse = icon.findDrawableByLayerId(badgeId);
 
         if (reuse != null && reuse instanceof NotificationDrawable) {
             badge = (NotificationDrawable) reuse;
@@ -316,19 +314,9 @@ public class MainActivity extends AppCompatActivity {
             badge = new NotificationDrawable(context);
         }
 
-        badge.setCount(count);
-        assert icon != null;
+        badge.setCount(String.valueOf(count));
         icon.mutate();
-
-        if(badge_a_modifier.equals("friend"))
-        {
-            icon.setDrawableByLayerId(R.id.ic_badge_friend, badge);
-        }
-        else if (badge_a_modifier.equals("message"))
-        {
-            icon.setDrawableByLayerId(R.id.ic_badge_message, badge);
-        }
-
+        icon.setDrawableByLayerId(badgeId, badge);
     }
 
     @Override
@@ -339,13 +327,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         Intent i;
 
-        switch (id){
+        switch (id) {
             case R.id.action_parametre:
                 i = new Intent(this, SettingsActivity.class);
                 startActivityForResult(i, 1);
                 return true;
             case R.id.action_friends:
-                i = new Intent(this, DemandeAmiActivity.class);
+                i = new Intent(this, PendingFriendshipActivity.class);
                 startActivity(i);
                 return true;
             case R.id.action_message:
@@ -392,16 +380,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private BroadcastReceiver pendingFriendshipReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Bundle extra = intent.getExtras();
-            if(extra != null)
-            {
-                String count = extra.getString("COUNT");
-                String type = extra.getString("TYPE");
-                setBadgeCount(ctx, count, type);
-            }
+            int pendingFriendshipCount = friendshipService.getPendingFriendships().size();
+            setBadgeCount(context, pendingFriendshipCount, "FRIEND");
         }
     };
 
@@ -410,21 +393,20 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             Log.d("MainActivity", "Broadcast recu YT");
             //TODO afficher le message
-            if(!Caller.getCurrentMessage().equals("")) waitingMsg = true;
+            if (!Caller.getCurrentMessage().equals("")) waitingMsg = true;
 
         }
     };
     private BroadcastReceiver volleyerrorreceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            displayAlert(NETWORK_ERROR);
+//            displayAlert(NETWORK_ERROR);
         }
     };
-    private void displayAlert(int errorID)
-    {
+
+    private void displayAlert(int errorID) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if(errorID == NETWORK_ERROR)
-        {
+        if (errorID == NETWORK_ERROR) {
             builder.setMessage("Erreur réseau detectée.").setCancelable(
                     false).setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
@@ -434,8 +416,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
-        if(errorID == YOUTUBE_ERROR)
-        {
+        if (errorID == YOUTUBE_ERROR) {
             builder.setMessage("Erreur : L'application Youtube n'est pas installée.").setCancelable(
                     false).setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {

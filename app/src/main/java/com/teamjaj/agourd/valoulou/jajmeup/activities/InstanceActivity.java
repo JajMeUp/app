@@ -26,16 +26,18 @@ public class InstanceActivity extends AppCompatActivity {
         Context ctx = this;
         IntentFilter volleyerrorfilter = new IntentFilter();
         volleyerrorfilter.addAction("volley.error.message");
-        registerReceiver(volleyerrorreceiver, volleyerrorfilter);
+//        registerReceiver(volleyerrorreceiver, volleyerrorfilter);
         IntentFilter yterrorfilter = new IntentFilter();
         yterrorfilter.addAction("youtube.error.message");
         registerReceiver(yterrorreceiver, yterrorfilter);
 
         Caller.setCtx(ctx);
-        Caller.storePersistantCookieString();
-        if(Caller.getCookieInstance() != null)
+        if(Caller.isTokenPresent(getApplicationContext()))
         {
-            Caller.checkCookie();
+//            Caller.checkCookie();
+            Intent mainIntent = new Intent(ctx, MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ctx.startActivity(mainIntent);
         }
         else
         {
