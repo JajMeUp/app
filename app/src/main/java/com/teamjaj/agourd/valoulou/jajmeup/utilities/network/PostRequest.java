@@ -38,8 +38,8 @@ public class PostRequest extends Request<Void> {
 
     @Override
     protected Response<Void> parseNetworkResponse(NetworkResponse response) {
-        if (response.statusCode != 201) {
-            // If status is NOT "201 - Created" then it's a failure
+        if (response.statusCode != 201 && response.statusCode != 204) {
+            // If status is NOT "201 - Created" or "204 - Nc Content" then it's a failure
             return Response.error(new VolleyError(response));
         }
 

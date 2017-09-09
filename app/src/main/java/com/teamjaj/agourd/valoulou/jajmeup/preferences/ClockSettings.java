@@ -8,8 +8,8 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 
-import  com.teamjaj.agourd.valoulou.jajmeup.R;
-import com.teamjaj.agourd.valoulou.jajmeup.utilities.Caller;
+import com.teamjaj.agourd.valoulou.jajmeup.R;
+import com.teamjaj.agourd.valoulou.jajmeup.services.ProfileService;
 
 /**
  * Created by Valentin on 22/11/2016.
@@ -17,9 +17,14 @@ import com.teamjaj.agourd.valoulou.jajmeup.utilities.Caller;
 
 public class ClockSettings extends PreferenceActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private ProfileService profileService;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        profileService = new ProfileService();
+
         addPreferencesFromResource(R.xml.clocksettings);
         SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
         EditTextPreference editTextPref = (EditTextPreference) findPreference("prefReveilDefault");
@@ -46,8 +51,6 @@ public class ClockSettings extends PreferenceActivity implements
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
-
-
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
         Preference pref = findPreference(key);
@@ -63,14 +66,14 @@ public class ClockSettings extends PreferenceActivity implements
                 String newPref = (String) pref.getSummary();
                 if(newPref.equals("Tout le monde"))
                 {
-                    Caller.newPref("world");
+                    profileService.update(this, "WORLD");
                 }
                 else if(newPref.equals("Seulement moi"))
                 {
-                    Caller.newPref("private");
+                    profileService.update(this, "PRIVATE");
                 }
                 else {
-                    Caller.newPref("friends");
+                    profileService.update(this, "FRIENDS");
                 }
 
             }
