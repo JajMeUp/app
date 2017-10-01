@@ -1,10 +1,9 @@
 package com.teamjaj.agourd.valoulou.jajmeup.services;
 
-
 import android.content.Context;
 
 import com.android.volley.Response;
-import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.PostRequest;
+import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.JajPostRequest;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.listeners.DefaultErrorListener;
 
 import org.json.JSONObject;
@@ -24,7 +23,8 @@ public class ProfileService extends AbstractService {
             }
         };
 
-        PostRequest request = new PostRequest(
+        JajPostRequest request = new JajPostRequest(
+                getToken(context),
                 computeRequestURL(context, "/api/profile/update"),
                 new JSONObject(params),
                 responseListener,

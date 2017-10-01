@@ -2,22 +2,14 @@ package com.teamjaj.agourd.valoulou.jajmeup.preferences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
+import android.preference.PreferenceFragment;
 
 import com.teamjaj.agourd.valoulou.jajmeup.R;
 import com.teamjaj.agourd.valoulou.jajmeup.services.ProfileService;
 
-/**
- * Created by Valentin on 22/11/2016.
- */
+public class ClockSettings extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-public class ClockSettings extends PreferenceActivity implements
-        SharedPreferences.OnSharedPreferenceChangeListener {
-
+    public static final String PREF_VISIBILITY_KEY = "pref_visibility";
     private ProfileService profileService;
 
     @Override
@@ -25,61 +17,28 @@ public class ClockSettings extends PreferenceActivity implements
         super.onCreate(savedInstanceState);
         profileService = new ProfileService();
 
-        addPreferencesFromResource(R.xml.clocksettings);
-        SharedPreferences sp = getPreferenceScreen().getSharedPreferences();
-        EditTextPreference editTextPref = (EditTextPreference) findPreference("prefReveilDefault");
-        editTextPref
-                .setSummary(sp.getString("prefReveilDefault", "Lien YouTube"));
-        ListPreference lp = (ListPreference) findPreference("prefWhoWakeMe");
-        lp.setSummary(sp.getString("prefWhoWakeMe", "Tout le monde"));
-        Preference historydel = findPreference("prefHistory");
-        Preference whowakemedel = findPreference("prefWhoWakeMe");
-        PreferenceScreen preferenceScreen = getPreferenceScreen();
-        preferenceScreen.removePreference(historydel);
-        preferenceScreen.removePreference(whowakemedel);
+        addPreferencesFromResource(R.xml.preferences);
     }
 
-    protected void onResume() {
+    @Override
+    public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
-    protected void onPause() {
+    @Override
+    public void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                          String key) {
-        Preference pref = findPreference(key);
-        String oldPref = (String)pref.getSummary();
-        if (pref instanceof EditTextPreference) {
-            EditTextPreference etp = (EditTextPreference) pref;
-            pref.setSummary(etp.getText());
-        }
-        if (pref instanceof ListPreference) {
-            ListPreference listp = (ListPreference) pref;
-            pref.setSummary(listp.getEntry());
-            if(key.equals("prefWhoWakeMe")){
-                String newPref = (String) pref.getSummary();
-                if(newPref.equals("Tout le monde"))
-                {
-                    profileService.update(this, "WORLD");
-                }
-                else if(newPref.equals("Seulement moi"))
-                {
-                    profileService.update(this, "PRIVATE");
-                }
-                else {
-                    profileService.update(this, "FRIENDS");
-                }
-
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(PREF_VISIBILITY_KEY)) { // TODO see how to do this in a generic way
+            String visibility = sharedPreferences.getString(key, "");
+            if (!visibility.isEmpty()) {
+                profileService.update(this.getActivity().getApplicationContext(), visibility);
             }
         }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("prefHistory",sharedPreferences.getBoolean("prefHistory", false));
-        editor.commit();
     }
 }

@@ -19,7 +19,7 @@ public class DefaultErrorListener implements Response.ErrorListener {
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        if (error.networkResponse.statusCode == 401) {
+        if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
             Intent signIntent = new Intent(context, SignActivity.class);
             context.startActivity(signIntent);
         }
