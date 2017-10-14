@@ -49,7 +49,7 @@ public class ClockService extends AbstractService {
 
         JajRequest<JSONArray> request = new JajGetArrayRequest(
                 getToken(context),
-                computeRequestURL(context, String.format("/api/alarm/makevote/%s", URL)),//passer deux paramètres ?
+                computeRequestURL(context, String.format("/api/alarm/create/%s", URL)),
                 responseListener,
                 new DefaultErrorListener(context));
         queueRequest(context, request);
