@@ -51,9 +51,9 @@ public class ClockService extends AbstractService {
     public void makeVote(final Context context, String URL, String message, long target)
     {
         Map<String, String> params = new HashMap<>();
-        params.put("URL", URL);
-        params.put("Message", message);
-        params.put("Target", Long.toString(target));
+        params.put("link", URL);
+        params.put("message", message);
+        params.put("targetID", Long.toString(target));
 
         Response.Listener<Void> responseListener = new Response.Listener<Void>() {
             @Override
