@@ -87,7 +87,12 @@ public class UsersList extends Fragment {
                     DialogFragmentMessage dialog = DialogFragmentMessage.newInstance();
                     dialog.show(getFragmentManager(), "fragmentDialog");
                 }
-                else Toast.makeText(getActivity(), "S'il vous plaît, partagez un lien Youtube avant de cliquer ici.", Toast.LENGTH_LONG).show();
+               // else Toast.makeText(getActivity(), "S'il vous plaît, partagez un lien Youtube avant de cliquer ici.", Toast.LENGTH_LONG).show();
+                else
+                {
+                    DialogFragmentPasteLink dialogYT = DialogFragmentPasteLink.newInstance();
+                    dialogYT.show(getFragmentManager(), "fragmentDialog");
+                }
                 return false;
             }
         });

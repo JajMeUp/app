@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 
@@ -40,7 +41,7 @@ public class DialogFragmentMessage extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText message = (EditText) getDialog().findViewById(R.id.message);
-                        System.out.println("Le beau message -> " + message.getText());
+                        Log.d("Message", String.valueOf(message.getText()));
                         Caller.setClockSong(String.valueOf(message.getText()));
                     }
                 });

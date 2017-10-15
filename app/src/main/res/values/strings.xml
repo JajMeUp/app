@@ -38,6 +38,7 @@
     <string name="action_cart">Notification</string>
 
     <string name="send_a_message">Message</string>
+    <string name="linkyoutube">Coller lien YouTube</string>
     <string name="send">Envoyer</string>
     <string name="notsend">Rien envoyer</string>
 
