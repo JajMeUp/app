@@ -11,34 +11,44 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.teamjaj.agourd.valoulou.jajmeup.fragments.ClockActivity;
 import com.teamjaj.agourd.valoulou.jajmeup.fragments.UsersList;
 
-public class PageAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+import java.util.ArrayList;
+import java.util.List;
 
-    public PageAdapter(FragmentManager fm, int NumOfTabs) {
+public class PageAdapter extends FragmentStatePagerAdapter {
+    private static final int CLOCK_TAB_POSITION = 0;
+    private static final int FRIEND_TAB_POSITION = 1;
+
+    private static final String CLOCK_TAB_TITLE = "Mon réveil";
+    private static final String FRIEND_TAB_TITLE = "Mes amis";
+
+    private List<Fragment> fragments = new ArrayList<>();
+
+    public PageAdapter(FragmentManager fm) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
+
+        fragments.add(new ClockActivity());
+        fragments.add(new UsersList());
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public CharSequence getPageTitle(int position) {
         switch (position) {
-            /*case 0:
-                HistoryActivity tab0 = new HistoryActivity();
-                return tab0;*/
-            case 0:
-                ClockActivity tab1 = new ClockActivity();
-                return tab1;
-            case 1:
-                UsersList tab2 = new UsersList();
-                return tab2;
-
+            case CLOCK_TAB_POSITION:
+                return CLOCK_TAB_TITLE;
+            case FRIEND_TAB_POSITION:
+                return FRIEND_TAB_TITLE;
             default:
-                return null;
+                return "";
         }
     }
 
     @Override
+    public Fragment getItem(int position) {
+        return fragments.get(position);
+    }
+
+    @Override
     public int getCount() {
-        return mNumOfTabs;
+        return fragments.size();
     }
 }

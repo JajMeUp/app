@@ -3,9 +3,11 @@ package com.teamjaj.agourd.valoulou.jajmeup.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,9 @@ import android.widget.ExpandableListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.teamjaj.agourd.valoulou.jajmeup.dtos.Profile;
+import com.teamjaj.agourd.valoulou.jajmeup.services.FriendshipService;
+import com.teamjaj.agourd.valoulou.jajmeup.services.ProfileService;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.Caller;
 import  com.teamjaj.agourd.valoulou.jajmeup.R;
 import com.teamjaj.agourd.valoulou.jajmeup.adaptaters.UsersAdapter;
@@ -25,10 +30,8 @@ import com.teamjaj.agourd.valoulou.jajmeup.adaptaters.UsersAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Created by Valentin on 03/08/2016.
- */
 public class UsersList extends Fragment {
 
     HashMap<String, java.util.List<String>> UsersCategory;
@@ -37,6 +40,19 @@ public class UsersList extends Fragment {
     UsersAdapter adapter;
     private SearchView searchV;
     //private String[] Userstring;
+
+    ProfileService profileService = new ProfileService();
+
+    private BroadcastReceiver searchResultReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            List<String> newList = new ArrayList<>();
+            for(Profile profile : profileService.getLastSearchResults()) {
+                newList.add(profile.getDisplayName());
+            }
+            adapter.updateUsersList(newList, UsersCategory);
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,17 +100,22 @@ public class UsersList extends Fragment {
         searchV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                adapter.filterData(query);
+                //adapter.filterData(query);
                 return false;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.filterData(newText);
+                profileService.findByName(getActivity().getApplicationContext(), newText);
+                //adapter.filterData(newText);
                 return false;
             }
         });
        //searchV.setOnCloseListener(this);
 
+        getActivity().registerReceiver(
+                searchResultReceiver,
+                new IntentFilter(ProfileService.BROADCAST_PROFILE_SEARCH_RESULTS)
+        );
         return view;
     }
 
@@ -137,7 +158,7 @@ public class UsersList extends Fragment {
             UsersCategory = getData(autorisation);
         else
             UsersCategory = getData("Mes amis");//Value at start
-        ListUsers = new ArrayList<String>(UsersCategory.keySet());
+        ListUsers = new ArrayList<>(UsersCategory.keySet());
     }
 
     @Override

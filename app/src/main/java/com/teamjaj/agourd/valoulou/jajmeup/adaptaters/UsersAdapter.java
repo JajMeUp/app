@@ -47,7 +47,7 @@ public class UsersAdapter extends BaseExpandableListAdapter {
         UsersCategory = newhash;
         ListUsers = newlist;
         OriginalListUsers.addAll(newlist);
-        saveList();
+        // saveList();
         this.notifyDataSetChanged();
     }
 
@@ -106,9 +106,9 @@ public class UsersAdapter extends BaseExpandableListAdapter {
         if(convertView == null)
         {
             LayoutInflater inflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflator.inflate(R.layout.child_list, parentView, false);
+            convertView = inflator.inflate(R.layout.user_list_item, parentView, false);
         }
-        TextView child_textview = (TextView) convertView.findViewById(R.id.ChildTxt);
+        TextView child_textview = (TextView) convertView.findViewById(R.id.user_list_item_user_name);
         child_textview.setText(ChildTitle);
 
         return convertView;

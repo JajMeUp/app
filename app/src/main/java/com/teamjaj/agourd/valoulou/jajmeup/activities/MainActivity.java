@@ -131,38 +131,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabreveil = tabLayout.newTab().setText("Mon réveil");
-        tablist = tabLayout.newTab().setText("Liste");
-        /*tabhistory = tabLayout.newTab().setText("Historique");
-        tabLayout.addTab(tabhistory);*/
-        tabLayout.addTab(tabreveil);
-        tabLayout.addTab(tablist);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-        final PageAdapter adapter = new PageAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+        final PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        viewPager.setCurrentItem(0);//Choix du tab que l'on veut voir au lancement de l'app
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
 
         /*****************************************
          * Gestion alarm
@@ -333,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
                 return true;
             case R.id.action_friends:
-                i = new Intent(this, PendingFriendshipActivity.class);
+                i = new Intent(this, FriendshipActivity.class);
                 startActivity(i);
                 return true;
             case R.id.action_message:

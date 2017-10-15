@@ -10,31 +10,43 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.teamjaj.agourd.valoulou.jajmeup.R;
+import com.teamjaj.agourd.valoulou.jajmeup.dtos.PendingFriendship;
 import com.teamjaj.agourd.valoulou.jajmeup.services.FriendshipService;
+
+import java.util.List;
 
 public class PendingFriendshipAdapter extends BaseAdapter implements ListAdapter {
 
-    private FriendshipService friendshipService;
     private Context context;
+    private FriendshipService friendshipService; // TODO make the adapter not using directly the service ?
+
+    private List<PendingFriendship> pendingFriendshipList;
 
     public PendingFriendshipAdapter(Context context, FriendshipService friendshipService) {
-        this.friendshipService = friendshipService;
         this.context = context;
+        this.friendshipService = friendshipService;
+
+        this.pendingFriendshipList = friendshipService.getPendingFriendships();
+    }
+
+    public void setPendingFriendshipList(List<PendingFriendship> pendingFriendshipList) {
+        this.pendingFriendshipList = pendingFriendshipList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return friendshipService.getPendingFriendships().size();
+        return pendingFriendshipList.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return friendshipService.getPendingFriendships().get(pos);
+        return pendingFriendshipList.get(pos);
     }
 
     @Override
     public long getItemId(int pos) {
-        return friendshipService.getPendingFriendships().get(pos).getId();
+        return pendingFriendshipList.get(pos).getId();
     }
 
     @Override
@@ -46,7 +58,7 @@ public class PendingFriendshipAdapter extends BaseAdapter implements ListAdapter
         }
 
         final TextView listItemText = (TextView)view.findViewById(R.id.string_text);
-        listItemText.setText(friendshipService.getPendingFriendships().get(position).getRequesterName());
+        listItemText.setText(pendingFriendshipList.get(position).getRequesterName());
 
         Button deleteBtn = (Button)view.findViewById(R.id.delete_btn);
         Button addBtn = (Button)view.findViewById(R.id.add_btn);

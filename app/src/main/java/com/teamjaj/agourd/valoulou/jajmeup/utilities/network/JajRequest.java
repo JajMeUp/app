@@ -1,5 +1,7 @@
 package com.teamjaj.agourd.valoulou.jajmeup.utilities.network;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 
@@ -29,6 +31,7 @@ public abstract class JajRequest<T> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
+        Log.d(getClass().getSimpleName(), String.format("Delivering response for %s", getUrl()));
         responseListener.onResponse(response);
     }
 }
