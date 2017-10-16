@@ -3,7 +3,6 @@ package com.teamjaj.agourd.valoulou.jajmeup.services;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.teamjaj.agourd.valoulou.jajmeup.dtos.Profile;
@@ -67,7 +66,6 @@ public class ProfileService extends AbstractService {
                         Log.e(this.getClass().getSimpleName(), "Error while mapping Profiles");
                     }
                 }
-                Toast.makeText(context, String.format("Found %d profiles", lastSearchResults.size()), Toast.LENGTH_SHORT).show();
                 Intent broadcast = new Intent(BROADCAST_PROFILE_SEARCH_RESULTS);
                 context.sendBroadcast(broadcast);
                 isSearchingProfiles = false;

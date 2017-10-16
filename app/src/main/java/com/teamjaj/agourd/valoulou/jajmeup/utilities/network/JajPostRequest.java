@@ -1,6 +1,5 @@
 package com.teamjaj.agourd.valoulou.jajmeup.utilities.network;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,7 +27,7 @@ public class JajPostRequest extends JajRequest<Void> {
     }
 
     @Override
-    public byte[] getBody() throws AuthFailureError {
+    public byte[] getBody() {
         return payload.toString().getBytes();
     }
 

@@ -7,12 +7,14 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.teamjaj.agourd.valoulou.jajmeup.dtos.PendingFriendship;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.JajGetArrayRequest;
+import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.JajPostRequest;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.JajPutRequest;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.JajRequest;
 import com.teamjaj.agourd.valoulou.jajmeup.utilities.network.listeners.DefaultErrorListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,25 @@ public class FriendshipService extends AbstractService {
                 getToken(context),
                 computeRequestURL(context, String.format("/api/friendship/reject/%d", id)),
                 responseListener,
+                new DefaultErrorListener(context)
+        );
+        queueRequest(context, request);
+    }
+
+    public void sendFriendshipRequest(final Context context, long id) {
+
+        Response.Listener<Void> responseListerner = new Response.Listener<Void>() {
+            @Override
+            public void onResponse(Void response) {
+                Toast.makeText(context, "Demande d'ami envoyée !", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        JajPostRequest request = new JajPostRequest(
+                getToken(context),
+                computeRequestURL(context, String.format("/api/friendship/%d", id)),
+                new JSONObject(),
+                responseListerner,
                 new DefaultErrorListener(context)
         );
         queueRequest(context, request);

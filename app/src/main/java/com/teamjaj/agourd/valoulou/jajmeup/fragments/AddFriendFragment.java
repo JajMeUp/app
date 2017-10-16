@@ -9,17 +9,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.teamjaj.agourd.valoulou.jajmeup.R;
 import com.teamjaj.agourd.valoulou.jajmeup.adaptaters.UserListAdapter;
+import com.teamjaj.agourd.valoulou.jajmeup.services.FriendshipService;
 import com.teamjaj.agourd.valoulou.jajmeup.services.ProfileService;
 
-public class AddFriendFragment extends Fragment {
+public class AddFriendFragment extends Fragment implements AdapterView.OnItemClickListener {
     private final ProfileService profileService = new ProfileService();
+    private final FriendshipService friendshipService = new FriendshipService();
 
     private UserListAdapter userListAdapter;
+    private SearchView searchView;
 
     private final BroadcastReceiver searchResultReceiver = new BroadcastReceiver() {
         @Override
@@ -46,8 +50,9 @@ public class AddFriendFragment extends Fragment {
 
         ListView userList = (ListView) view.findViewById(R.id.add_friend_user_list);
         userList.setAdapter(userListAdapter);
+        userList.setOnItemClickListener(this);
 
-        SearchView searchView = (SearchView) view.findViewById(R.id.search_user);
+        searchView = (SearchView) view.findViewById(R.id.search_user);
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -75,5 +80,11 @@ public class AddFriendFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(searchResultReceiver);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        friendshipService.sendFriendshipRequest(getContext(), id);
+        searchView.setQuery("", true);
     }
 }
