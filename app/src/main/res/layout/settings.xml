@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.teamjaj.agourd.valoulou.jajmeup.activities.SettingsActivity"
+    tools:context="com.teamjaj.jajmeup.activities.SettingsActivity"
     android:background="@color/background_general">
 
-    <fragment android:name="com.teamjaj.agourd.valoulou.jajmeup.preferences.ClockSettings"
+    <fragment android:name="com.teamjaj.jajmeup.preferences.ClockSettings"
         android:id="@+id/preferences_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -5,7 +5,7 @@
     <!--
         USE THIS WHEN ProfilePicturePreference CLASS IS READY
 
-        <com.teamjaj.agourd.valoulou.jajmeup.preferences.ProfilePicturePreference
+     com.teamjaj.jajmeup.preferencesnces.ProfilePicturePreference
             android:key="pref_profilePicture"
             android:title="Photo de profile" />
     -->

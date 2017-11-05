@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.teamjaj.agourd.valoulou.jajmeup">
+    package="com.teamjaj.jajmeup">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.MainActivity"
+            android:name="com.teamjaj.jajmeup.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.InstanceActivity"
+            android:name="com.teamjaj.jajmeup.activities.InstanceActivity"
             android:label="WakeMeUp">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
         <!-- <activity android:name=".activities.SignActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/> -->
-        <activity android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.SearchActivity">
+        <activity android:name="com.teamjaj.jajmeup.activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -61,28 +61,28 @@
         -->
 
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.SignActivity"
+            android:name="com.teamjaj.jajmeup.activities.SignActivity"
             android:label="Bienvenue dans WakeMeUp">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.LoginActivity"
+            android:name="com.teamjaj.jajmeup.activities.LoginActivity"
             android:label="Connexion">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.RegisterActivity"
+            android:name="com.teamjaj.jajmeup.activities.RegisterActivity"
             android:label="Inscription">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.preferences.UserSettings"
+            android:name="com.teamjaj.jajmeup.preferences.UserSettings"
             android:screenOrientation="nosensor"
             android:theme="@style/MainTheme">
             <intent-filer>
@@ -92,7 +92,7 @@
             </intent-filer>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.preferences.ClockSettings"
+            android:name="com.teamjaj.jajmeup.preferences.ClockSettings"
             android:screenOrientation="nosensor"
             android:theme="@style/MainTheme">
             <intent-filer>
@@ -102,28 +102,28 @@
             </intent-filer>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.FriendshipActivity"
+            android:name="com.teamjaj.jajmeup.activities.FriendshipActivity"
             android:label="Demande d&apos;amis">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.MessageActivity"
+            android:name="com.teamjaj.jajmeup.activities.MessageActivity"
             android:label="Message">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.MessengerActivity"
+            android:name="com.teamjaj.jajmeup.activities.MessengerActivity"
             android:label="Messenger">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.SettingsActivity"
+            android:name="com.teamjaj.jajmeup.activities.SettingsActivity"
             android:label="Paramètres">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -131,12 +131,12 @@
         </activity>
 
         <service
-            android:name="com.teamjaj.agourd.valoulou.jajmeup.services.AlarmService"
+            android:name="com.teamjaj.jajmeup.services.AlarmService"
             android:enabled="true" />
 
-        <receiver android:name="com.teamjaj.agourd.valoulou.jajmeup.receivers.AlarmReceiver" />
+        <receiver android:name="com.teamjaj.jajmeup.receivers.AlarmReceiver" />
 
-        <activity android:name="com.teamjaj.agourd.valoulou.jajmeup.activities.YoutubeActivity" />
+        <activity android:name="com.teamjaj.jajmeup.activities.YoutubeActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

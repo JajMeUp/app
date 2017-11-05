@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WakeMeUp</string>
+    <string name="app_name">JajMeUp</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <!--<string name="hostname_server">192.168.56.101</string>-->

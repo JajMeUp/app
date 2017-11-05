@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.teamjaj.agourd.valoulou.jajmeup.drawables.RingImage
+    <com.teamjaj.jajmeup.drawables.RingImage
         android:id="@+id/ProfilePicIV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
