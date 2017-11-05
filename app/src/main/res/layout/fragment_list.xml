@@ -9,13 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <ExpandableListView
+    <ListView
         android:id="@+id/expandableListPerson"
         android:layout_width="match_parent"
         android:layout_height="454dp"
         android:dividerHeight="1dp"
         android:childDivider="#00000000"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft">
-    </ExpandableListView>
+    </ListView>
 
 </LinearLayout>

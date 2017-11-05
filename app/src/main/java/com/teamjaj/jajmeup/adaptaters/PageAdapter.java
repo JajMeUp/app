@@ -1,15 +1,11 @@
 package com.teamjaj.jajmeup.adaptaters;
 
-/**
- * Created by Valentin on 15/07/2016.
- */
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.teamjaj.jajmeup.fragments.ClockActivity;
-import com.teamjaj.jajmeup.fragments.UsersList;
+import com.teamjaj.jajmeup.fragments.JajFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +23,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         super(fm);
 
         fragments.add(new ClockActivity());
-        fragments.add(new UsersList());
+        fragments.add(new JajFragment());
     }
 
     @Override

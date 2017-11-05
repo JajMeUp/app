@@ -3,19 +3,18 @@ package com.teamjaj.jajmeup.services;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.teamjaj.jajmeup.R;
 import com.teamjaj.jajmeup.activities.LoginActivity;
+import com.teamjaj.jajmeup.dtos.Alarm;
 import com.teamjaj.jajmeup.utilities.QueueSingleton;
-import com.teamjaj.jajmeup.utilities.network.JajGetArrayRequest;
-import com.teamjaj.jajmeup.utilities.network.JajRequest;
+import com.teamjaj.jajmeup.utilities.network.JajGetObjectRequest;
 import com.teamjaj.jajmeup.utilities.network.PostRequest;
 import com.teamjaj.jajmeup.utilities.network.listeners.DefaultErrorListener;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,21 +25,28 @@ public class ClockService extends AbstractService {
 
     public static final String BROADCAST_REFRESH_CLOCK_ALARM_REQUEST = "com.teamjaj.jajmeup.CLOCK_ALARM";
 
-    public String LastAlarmAdress = new String();
+    private Alarm lastAlarm;
 
-    public void getLastAlarmRequest(final Context context)
+    public Alarm getLastAlarm() {
+        return lastAlarm;
+    }
+
+    public void requestLastAlarm(final Context context)
     {
-        Response.Listener<JSONArray> responseListener = new Response.Listener<JSONArray>() {
+        Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
                     try {
-                        LastAlarmAdress = response.getJSONObject(0).getString("LastAlarm");
+                        lastAlarm = new Alarm(response);
+                        Intent broadcast = new Intent(BROADCAST_REFRESH_CLOCK_ALARM_REQUEST);
+                        context.sendBroadcast(broadcast);
                     } catch (JSONException ignore) {
+                        Log.e("ClockService", "Error while parsing Alarm from server response");
                     }
             }
         };
 
-        JajRequest<JSONArray> request = new JajGetArrayRequest(
+        JajGetObjectRequest request = new JajGetObjectRequest(
                 getToken(context),
                 computeRequestURL(context, "/api/alarm/lastalarm"),
                 responseListener,
@@ -58,7 +64,7 @@ public class ClockService extends AbstractService {
         Response.Listener<Void> responseListener = new Response.Listener<Void>() {
             @Override
             public void onResponse(Void response) {
-                Toast.makeText(context, "Ton vote a bien ete pris en compte", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Ton vote a bien été pris en compte", Toast.LENGTH_LONG).show();
                 Intent login = new Intent(context, LoginActivity.class);
                 context.startActivity(login);
             }
@@ -71,13 +77,13 @@ public class ClockService extends AbstractService {
                     JSONObject responseErrors = new JSONObject(new String(error.networkResponse.data));
                     Toast.makeText(context, responseErrors.getString("defaultMessage"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Toast.makeText(context, "Ton vote n'a pas ete pris en compte c'est toi qui a le seum", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Ton vote n'a pas été pris en compte c'est toi qui a le seum", Toast.LENGTH_LONG).show();
                 }
             }
         };
 
         PostRequest request = new PostRequest(
-                String.format("http://%s:8080/register", context.getResources().getString(R.string.hostname_server)),
+                computeRequestURL(context, "/api/alarm/create"),
                 new JSONObject(params),
                 responseListener,
                 errorListener);
