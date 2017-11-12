@@ -3,13 +3,14 @@ package com.teamjaj.jajmeup.services;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.teamjaj.jajmeup.activities.YoutubeActivity;
 import com.teamjaj.jajmeup.dtos.Alarm;
 import com.teamjaj.jajmeup.utilities.network.JajGetObjectRequest;
 import com.teamjaj.jajmeup.utilities.network.JajPostRequest;
+import com.teamjaj.jajmeup.utilities.network.JajRequest;
 import com.teamjaj.jajmeup.utilities.network.listeners.DefaultErrorListener;
 
 import org.json.JSONException;
@@ -19,8 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClockService extends AbstractService {
-
-    public static final String BROADCAST_REFRESH_CLOCK_ALARM_REQUEST = "com.teamjaj.jajmeup.CLOCK_ALARM";
 
     private Alarm lastAlarm;
 
@@ -34,16 +33,19 @@ public class ClockService extends AbstractService {
             @Override
             public void onResponse(JSONObject response) {
                     try {
-                        lastAlarm = new Alarm(response);
-                        Intent broadcast = new Intent(BROADCAST_REFRESH_CLOCK_ALARM_REQUEST);
-                        context.sendBroadcast(broadcast);
+                        Alarm alarm = new Alarm(response);
+                        Intent startYT = new Intent(context, YoutubeActivity.class);
+                        startYT.putExtra("link", alarm.getURL());
+                        startYT.putExtra("message", alarm.getMessage());
+                        startYT.putExtra("voter", alarm.getVoterName());
+                        context.startActivity(startYT);
+
                     } catch (JSONException ignore) {
-                        Log.e("ClockService", "Error while parsing Alarm from server response");
                     }
             }
         };
 
-        JajGetObjectRequest request = new JajGetObjectRequest(
+        JajRequest<JSONObject> request = new JajGetObjectRequest(
                 getToken(context),
                 computeRequestURL(context, "/api/alarm/lastalarm"),
                 responseListener,

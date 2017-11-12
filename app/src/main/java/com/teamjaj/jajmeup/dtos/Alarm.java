@@ -10,7 +10,7 @@ public class Alarm {
 
     public Alarm(JSONObject data) throws JSONException {
         setVoterName(data.getString("voterName"));
-        setURL(data.getString("URL"));
+        setURL(data.getString("link"));
         setMessage(data.getString("message"));
     }
 
