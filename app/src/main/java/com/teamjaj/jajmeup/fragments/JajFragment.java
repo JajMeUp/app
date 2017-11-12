@@ -86,8 +86,10 @@ public class JajFragment extends Fragment implements AdapterView.OnItemClickList
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         // TODO - Get the Youtube link
-
-        // clockService.makeVote(getContext(), URL, MESSAGE, id);
-        // searchView.setQuery("", true);
+        Bundle target = new Bundle();
+        target.putString("target", String.valueOf(id));
+        DialogFragmentPasteLink fragParamReveil = new DialogFragmentPasteLink();
+        fragParamReveil.setArguments(target);
+        fragParamReveil.show(getFragmentManager(), "YouTube Link");
     }
 }

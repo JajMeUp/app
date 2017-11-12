@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name="com.teamjaj.jajmeup.activities.InstanceActivity"
-            android:label="WakeMeUp">
+            android:label="JAJMeUp">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
@@ -62,7 +62,7 @@
 
         <activity
             android:name="com.teamjaj.jajmeup.activities.SignActivity"
-            android:label="Bienvenue dans WakeMeUp">
+            android:label="Bienvenue dans JAJMeUp">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

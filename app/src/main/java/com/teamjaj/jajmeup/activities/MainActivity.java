@@ -216,9 +216,9 @@ public class MainActivity extends AppCompatActivity {
     public void onToggleClicked(View view) {
         if (((ToggleButton) view).isChecked()) {
             Log.d("MyActivity", "Alarm On");
-            Caller.nameYTvideo("5Fp1viiRJnw");
+            //Caller.nameYTvideo("5Fp1viiRJnw");
             Calendar calendar = Calendar.getInstance();
-            ClockObject.setAlarmText("YOLOPPOELDORK");
+           // ClockObject.setAlarmText("YOLOPPOELDORK");
             Log.d("MyActivity", "Alarm heure : " + ClockObject.GetHours() + ":" + ClockObject.GetMinutes());
             calendar.set(Calendar.HOUR_OF_DAY, ClockObject.GetHours());
             calendar.set(Calendar.MINUTE, ClockObject.GetMinutes());
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
-            ClockObject.setAlarmText("");
+            //ClockObject.setAlarmText("");
             Log.d("MyActivity", "Alarm Off");
         }
     }

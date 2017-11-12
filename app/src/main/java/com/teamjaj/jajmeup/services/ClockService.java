@@ -7,12 +7,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.teamjaj.jajmeup.activities.LoginActivity;
 import com.teamjaj.jajmeup.dtos.Alarm;
-import com.teamjaj.jajmeup.utilities.QueueSingleton;
 import com.teamjaj.jajmeup.utilities.network.JajGetObjectRequest;
-import com.teamjaj.jajmeup.utilities.network.PostRequest;
+import com.teamjaj.jajmeup.utilities.network.JajPostRequest;
 import com.teamjaj.jajmeup.utilities.network.listeners.DefaultErrorListener;
 
 import org.json.JSONException;
@@ -54,39 +51,26 @@ public class ClockService extends AbstractService {
         queueRequest(context, request);
     }
 
-    public void makeVote(final Context context, String URL, String message, long target)
-    {
+    public void makeVote(final Context ctx, String URL, String message, long target) {
         Map<String, String> params = new HashMap<>();
+        params.put("targetId", Long.toString(target));
         params.put("link", URL);
         params.put("message", message);
-        params.put("targetID", Long.toString(target));
 
-        Response.Listener<Void> responseListener = new Response.Listener<Void>() {
+        Response.Listener<Void> responseListerner = new Response.Listener<Void>() {
             @Override
             public void onResponse(Void response) {
-                Toast.makeText(context, "Ton vote a bien été pris en compte", Toast.LENGTH_LONG).show();
-                Intent login = new Intent(context, LoginActivity.class);
-                context.startActivity(login);
+                Toast.makeText(ctx, "A vote !", Toast.LENGTH_SHORT).show();
             }
         };
 
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                try {
-                    JSONObject responseErrors = new JSONObject(new String(error.networkResponse.data));
-                    Toast.makeText(context, responseErrors.getString("defaultMessage"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    Toast.makeText(context, "Ton vote n'a pas été pris en compte c'est toi qui a le seum", Toast.LENGTH_LONG).show();
-                }
-            }
-        };
-
-        PostRequest request = new PostRequest(
-                computeRequestURL(context, "/api/alarm/create"),
+        JajPostRequest request = new JajPostRequest(
+                getToken(ctx),
+                computeRequestURL(ctx, String.format("/api/alarm/create")),
                 new JSONObject(params),
-                responseListener,
-                errorListener);
-        QueueSingleton.getInstance(context).addToRequestQueue(request);
+                responseListerner,
+                new DefaultErrorListener(ctx)
+        );
+        queueRequest(ctx, request);
     }
 }
