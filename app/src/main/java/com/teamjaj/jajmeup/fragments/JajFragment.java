@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.teamjaj.jajmeup.R;
+import com.teamjaj.jajmeup.activities.MainActivity;
 import com.teamjaj.jajmeup.adaptaters.UserListAdapter;
 import com.teamjaj.jajmeup.services.ClockService;
 import com.teamjaj.jajmeup.services.ProfileService;
@@ -25,6 +26,8 @@ public class JajFragment extends Fragment implements AdapterView.OnItemClickList
     private ClockService clockService = new ClockService();
 
     private SearchView searchView;
+
+    public String sharedLink;
 
     private BroadcastReceiver searchResultReceiver = new BroadcastReceiver() {
         @Override
@@ -86,8 +89,12 @@ public class JajFragment extends Fragment implements AdapterView.OnItemClickList
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         // TODO - Get the Youtube link
+
         Bundle target = new Bundle();
         target.putString("target", String.valueOf(id));
+        target.putString("sharedlink", ((MainActivity) getActivity()).getSharedLink());
+        ((MainActivity) getActivity()).setSharedLink("");
+        System.out.println("Lienrecu" + ((MainActivity) getActivity()).getSharedLink());
         DialogFragmentPasteLink fragParamReveil = new DialogFragmentPasteLink();
         fragParamReveil.setArguments(target);
         fragParamReveil.show(getFragmentManager(), "YouTube Link");

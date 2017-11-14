@@ -85,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
     private TimerTask task;
     private Timer timer;
 
+    private String SharedLink;
+
+    public void setSharedLink(String url){
+        this.SharedLink = url;
+    }
+    public String getSharedLink(){
+        return SharedLink;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,23 +144,16 @@ public class MainActivity extends AppCompatActivity {
         final PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
-        /*****************************************
-         * Gestion alarm
-         ****************************************/
-
-        // setContentView(R.layout.fragment_main);
-
         Intent intent = getIntent();
-        String action = intent.getAction();
-        String type = intent.getType();
+
+        System.out.println("LinkIntent ->"+intent.getStringExtra(Intent.EXTRA_TEXT));
 
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        intent.removeExtra(Intent.EXTRA_TEXT);
 
         if (sharedText != null) {
-            String currentLink = sharedText.split(".be/")[1];
-            assert (currentLink != null);
-            Caller.setCurrentLink(currentLink);
-
+            System.out.println("Link -> "+sharedText);
+            setSharedLink(sharedText);
             viewPager.setCurrentItem(1);
         }
 
@@ -170,9 +172,23 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+
+        Intent intent =getIntent();
+
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        intent.removeExtra(Intent.EXTRA_TEXT);
+
+        if (sharedText != null) {
+            System.out.println("Link -> "+sharedText);
+            setSharedLink(sharedText);
+            viewPager.setCurrentItem(1);
+        }
+
+        System.out.println("JE SUIS LA");
+
         String valueAutorisation = PreferenceManager.getDefaultSharedPreferences(this).getString("prefWhoWakeMe", null);
         SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(this);
-
 
         if (valueAutorisation != null) {
             if (valueAutorisation.equals("Seulement moi") && tablist.getText() != null) {
