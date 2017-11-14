@@ -75,9 +75,6 @@ public class DialogFragmentPasteLink extends DialogFragment {
 
                 });
 
-        /*lienytedit = (EditText) getDialog().findViewById(R.id.youtubelink);
-        Bundle mArgs = getArguments();*/
-
 
         return messageAlter.create();
 

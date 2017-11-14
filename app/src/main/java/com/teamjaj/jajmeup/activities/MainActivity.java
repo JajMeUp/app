@@ -146,13 +146,10 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        System.out.println("LinkIntent ->"+intent.getStringExtra(Intent.EXTRA_TEXT));
-
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         intent.removeExtra(Intent.EXTRA_TEXT);
 
         if (sharedText != null) {
-            System.out.println("Link -> "+sharedText);
             setSharedLink(sharedText);
             viewPager.setCurrentItem(1);
         }
@@ -180,12 +177,9 @@ public class MainActivity extends AppCompatActivity {
         intent.removeExtra(Intent.EXTRA_TEXT);
 
         if (sharedText != null) {
-            System.out.println("Link -> "+sharedText);
             setSharedLink(sharedText);
             viewPager.setCurrentItem(1);
         }
-
-        System.out.println("JE SUIS LA");
 
         String valueAutorisation = PreferenceManager.getDefaultSharedPreferences(this).getString("prefWhoWakeMe", null);
         SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(this);

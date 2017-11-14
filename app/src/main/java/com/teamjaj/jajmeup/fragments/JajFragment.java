@@ -94,7 +94,6 @@ public class JajFragment extends Fragment implements AdapterView.OnItemClickList
         target.putString("target", String.valueOf(id));
         target.putString("sharedlink", ((MainActivity) getActivity()).getSharedLink());
         ((MainActivity) getActivity()).setSharedLink("");
-        System.out.println("Lienrecu" + ((MainActivity) getActivity()).getSharedLink());
         DialogFragmentPasteLink fragParamReveil = new DialogFragmentPasteLink();
         fragParamReveil.setArguments(target);
         fragParamReveil.show(getFragmentManager(), "YouTube Link");
