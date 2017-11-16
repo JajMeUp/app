@@ -38,6 +38,7 @@
     <string name="action_cart">Notification</string>
 
     <string name="send_a_message">Message</string>
+    <string name="messagelu">Ok merci!</string>
     <string name="linkyoutube">Coller lien YouTube</string>
     <string name="messagereveil">Entre un message pour ton "ami"</string>
     <string name="send">Envoyer</string>

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int ACCESS_REQUEST_CODE = 101;
 
-    AlarmManager alarmManager;
+    private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private static Menu menu;
     private static MainActivity inst;
@@ -92,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
     }
     public String getSharedLink(){
         return SharedLink;
+    }
+    public AlarmManager getAlarmManager(){
+        return alarmManager;
+    }
+    public void setAlarmManager(AlarmManager al){
+        this.alarmManager = al;
     }
 
     @Override
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 new IntentFilter(FriendshipService.BROADCAST_REFRESH_PENDING_FRIENDSHIP_REQUEST)
         );
         IntentFilter ytfilter = new IntentFilter();
-        ytfilter.addAction("ekto.valou.ytbroadcast");
+        ytfilter.addAction("jajmeup.messagereveil");
         IntentFilter volleyerror = new IntentFilter();
         volleyerror.addAction("volley.error.message");
         registerReceiver(ytreceiver, ytfilter);
@@ -144,18 +150,8 @@ public class MainActivity extends AppCompatActivity {
         final PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
-        Intent intent = getIntent();
 
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        intent.removeExtra(Intent.EXTRA_TEXT);
-
-        if (sharedText != null) {
-            setSharedLink(sharedText);
-            viewPager.setCurrentItem(1);
-        }
-
-
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        setAlarmManager((AlarmManager) getSystemService(ALARM_SERVICE));
 
     }
 
@@ -168,18 +164,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-
-        Intent intent =getIntent();
-
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        intent.removeExtra(Intent.EXTRA_TEXT);
-
-        if (sharedText != null) {
-            setSharedLink(sharedText);
-            viewPager.setCurrentItem(1);
-        }
 
         String valueAutorisation = PreferenceManager.getDefaultSharedPreferences(this).getString("prefWhoWakeMe", null);
         SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -219,6 +203,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d("MainActivity", "onNewIntent()...");
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+                String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                setSharedLink(sharedText);
+                viewPager.setCurrentItem(1);
+                Log.d("MainActivity", sharedText);
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         moveTaskToBack(true);
     }
@@ -233,9 +234,9 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
 
             pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+            getAlarmManager().set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.cancel(pendingIntent);
+            getAlarmManager().cancel(pendingIntent);
             Log.d("MyActivity", "Alarm Off");
         }
     }
@@ -370,9 +371,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("MainActivity", "Broadcast recu YT");
-            //TODO afficher le message
-            if (!Caller.getCurrentMessage().equals("")) waitingMsg = true;
-
+            ToggleButton tog = (ToggleButton)findViewById(R.id.SetAlarmButton);
+            tog.setChecked(false);
         }
     };
     private BroadcastReceiver volleyerrorreceiver = new BroadcastReceiver() {

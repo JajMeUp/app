@@ -1,7 +1,9 @@
 package com.teamjaj.jajmeup.activities;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -16,6 +18,8 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     //https://www.youtube.com/watch?v=<VIDEO_ID>
     public String VIDEO_ID;
+    private String voter;
+    private String message_voter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,18 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubePlayerView.initialize(API_KEY, this);
         VIDEO_ID = getIntent().getStringExtra("link");
+        voter = getIntent().getStringExtra("voter");
+        message_voter = getIntent().getStringExtra("message");
+
+        TextView text_voter = (TextView)findViewById(R.id.voter);
+        text_voter.setText(Html.fromHtml("<b>"+voter+"</b>"+" t'as réveillé !"), TextView.BufferType.EDITABLE);
+        TextView text_message = (TextView)findViewById(R.id.voter_message);
+        text_message.setText(message_voter, TextView.BufferType.EDITABLE);
+
+        if (VIDEO_ID == "")
+        {
+            VIDEO_ID = "dQw4w9WgXcQ";
+        }
 
     }
 
@@ -37,18 +53,22 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
-        //if(null== player) return;
 
         player.loadVideo(VIDEO_ID);
 
-        // Start buffering
-        /*if (!wasRestored) {
-            player.cueVideo(VIDEO_ID);
-        }*/
     }
 
     public void stopButtonClick(View view){
+        /*player.
+        DialogFragmentMessage fragParamReveil = new DialogFragmentMessage();
+        // fragParamReveil.setArguments(target);
+        fragParamReveil.show(getSupportFragmentManager(), "YouTube Link");*/
         finish();
+       /*Intent intent = new Intent();
+        intent.setAction("jajmeup.messagereveil");
+        intent.putExtra("voter",voter);
+        intent.putExtra("message_voter", message_voter);
+        sendBroadcast(intent);*/
     }
 
 }

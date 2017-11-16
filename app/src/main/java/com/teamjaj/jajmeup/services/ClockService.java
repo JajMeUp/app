@@ -38,6 +38,11 @@ public class ClockService extends AbstractService {
                         startYT.putExtra("link", alarm.getURL());
                         startYT.putExtra("message", alarm.getMessage());
                         startYT.putExtra("voter", alarm.getVoterName());
+                        Intent intent = new Intent();
+                        intent.setAction("jajmeup.messagereveil");
+                        //intent.putExtra("voter",voter);
+                        //intent.putExtra("message_voter", message_voter);
+                        context.sendBroadcast(intent);
                         context.startActivity(startYT);
 
                     } catch (JSONException ignore) {
