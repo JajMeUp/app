@@ -35,11 +35,9 @@ import com.teamjaj.jajmeup.R;
 import com.teamjaj.jajmeup.adaptaters.PageAdapter;
 import com.teamjaj.jajmeup.drawables.NotificationDrawable;
 import com.teamjaj.jajmeup.fragments.ClockActivity;
-import com.teamjaj.jajmeup.fragments.DialogFragmentMessageReveil;
 import com.teamjaj.jajmeup.receivers.AlarmReceiver;
 import com.teamjaj.jajmeup.services.FriendshipService;
 import com.teamjaj.jajmeup.services.tasks.DataFetchingTask;
-import com.teamjaj.jajmeup.utilities.Caller;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -103,11 +101,6 @@ public class MainActivity extends AppCompatActivity {
             sendBroadcast(intent);
         }
 
-        if (!Caller.isTokenPresent(this)) {
-            Intent signIntent = new Intent(ctx, SignActivity.class);
-            ctx.startActivity(signIntent);
-        }
-
         // TODO: Do we still really need this ?
         int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
@@ -124,11 +117,8 @@ public class MainActivity extends AppCompatActivity {
         ytfilter.addAction("jajmeup.messagereveil");
         IntentFilter volleyerror = new IntentFilter();
         volleyerror.addAction("volley.error.message");
-        registerReceiver(ytreceiver, ytfilter);
-        registerReceiver(volleyerrorreceiver, volleyerror);
 
         setContentView(R.layout.activity_main);
-        Caller.setCtx(ctx.getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -174,19 +164,12 @@ public class MainActivity extends AppCompatActivity {
             }*/
         }
 
-        if (waitingMsg == true) {
-            DialogFragmentMessageReveil dialog = DialogFragmentMessageReveil.newInstance();
-            dialog.show(getSupportFragmentManager(), "fragmentDialog");
-            waitingMsg = false;
-        }
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(pendingFriendshipReceiver);
-        unregisterReceiver(ytreceiver);
     }
 
     @Override
@@ -300,10 +283,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_friends:
                 i = new Intent(this, FriendshipActivity.class);
-                startActivity(i);
-                return true;
-            case R.id.action_message:
-                i = new Intent(this, MessageActivity.class);
                 startActivity(i);
                 return true;
         }

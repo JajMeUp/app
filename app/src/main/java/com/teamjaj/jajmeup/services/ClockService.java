@@ -64,7 +64,7 @@ public class ClockService extends AbstractService {
         params.put("link", URL);
         params.put("message", message);
 
-        Response.Listener<Void> responseListerner = new Response.Listener<Void>() {
+        Response.Listener<Void> responseListener = new Response.Listener<Void>() {
             @Override
             public void onResponse(Void response) {
                 Toast.makeText(ctx, "A vote !", Toast.LENGTH_SHORT).show();
@@ -73,9 +73,9 @@ public class ClockService extends AbstractService {
 
         JajPostRequest request = new JajPostRequest(
                 getToken(ctx),
-                computeRequestURL(ctx, String.format("/api/alarm/create")),
+                computeRequestURL(ctx, "/api/alarm/create"),
                 new JSONObject(params),
-                responseListerner,
+                responseListener,
                 new DefaultErrorListener(ctx)
         );
         queueRequest(ctx, request);

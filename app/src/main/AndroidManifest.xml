@@ -21,7 +21,9 @@
             android:launchMode="singleInstance"
             >
             <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEND" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
@@ -36,15 +38,6 @@
             <intent-filter>
                 <action android:name="volley.error.message" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.teamjaj.jajmeup.activities.InstanceActivity"
-            android:label="JAJMeUp">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <!-- <activity android:name=".activities.SignActivity" android:label="WakeMeUp" android:theme="@style/AppTheme.NoActionBar"/> -->
@@ -102,20 +95,6 @@
         <activity
             android:name="com.teamjaj.jajmeup.activities.FriendshipActivity"
             android:label="Demande d&apos;amis">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.teamjaj.jajmeup.activities.MessageActivity"
-            android:label="Message">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.teamjaj.jajmeup.activities.MessengerActivity"
-            android:label="Messenger">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

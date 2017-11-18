@@ -25,6 +25,7 @@ public class ProfileService extends AbstractService {
 
     private List<Profile> lastSearchResults = new ArrayList<>();
     private boolean isSearchingProfiles = false;
+    private boolean isSearchingFriendProfiles = false;
 
     public List<Profile> getLastSearchResults() {
         return lastSearchResults;
@@ -82,11 +83,11 @@ public class ProfileService extends AbstractService {
     }
 
     public void findFriendByName(final Context context, String name) {
-        if (isSearchingProfiles) {
+        if (isSearchingFriendProfiles) {
             return; // Prevent to send another request if the previous one is not finished
         }
 
-        isSearchingProfiles = true;
+        isSearchingFriendProfiles = true;
         Response.Listener<JSONArray> responseListener = new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -100,7 +101,7 @@ public class ProfileService extends AbstractService {
                 }
                 Intent broadcast = new Intent(BROADCAST_PROFILE_SEARCH_RESULTS);
                 context.sendBroadcast(broadcast);
-                isSearchingProfiles = false;
+                isSearchingFriendProfiles = false;
             }
         };
 

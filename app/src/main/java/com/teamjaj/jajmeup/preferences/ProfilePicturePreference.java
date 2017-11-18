@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import com.teamjaj.jajmeup.R;
 import com.teamjaj.jajmeup.activities.SettingsActivity;
 import com.teamjaj.jajmeup.utilities.BitmapUtils;
-import com.teamjaj.jajmeup.utilities.Caller;
 
 import java.io.IOException;
 
@@ -71,7 +70,7 @@ public class ProfilePicturePreference extends Preference {
             Log.d(this.getClass().getSimpleName(), "Requesting profile picture picture to the server");
             IntentFilter filter = new IntentFilter();
             filter.addAction("ekto.valou.picbroadcast");
-            Caller.getPicture();
+            // TODO GET PICTURE FROM SERVER
         }
     }
 
